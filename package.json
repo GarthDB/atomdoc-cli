@@ -1,6 +1,7 @@
 {
   "name": "atomdoc-cli",
   "description": "A CLI interface for AtomDoc",
+  "version": "0.0.0",
   "bin": {
     "atomdoc": "./bin/index.js"
   },
@@ -12,8 +13,7 @@
     "lint": "eslint .",
     "codecov": "nyc report -r lcovonly && codecov",
     "validate": "npm run lint && npm run test",
-    "release": "semantic-release pre && npm publish && semantic-release post",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
