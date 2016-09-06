@@ -3,6 +3,7 @@ logs
 *.log
 npm-debug.log*
 ./api.json
+docs.json
 
 # Runtime data
 pids
