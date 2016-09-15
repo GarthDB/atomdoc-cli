@@ -17,6 +17,10 @@ var _lib = require('../lib/');
 
 var _lib2 = _interopRequireDefault(_lib);
 
+var _basic_reporter = require('../lib/basic_reporter');
+
+var _basic_reporter2 = _interopRequireDefault(_basic_reporter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _pkginfo2.default)(module, 'version', 'description');

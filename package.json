@@ -54,11 +54,10 @@
     ]
   },
   "dependencies": {
+    "acorn": "^4.0.2",
     "atomdoc": "^1.0.4",
-    "coffee-script": "^1.10.0",
     "commander": "^2.9.0",
-    "donna": "^1.0.13",
-    "extract-comments": "^0.10.1",
+    "falafel": "^2.0.0",
     "fs-readfile-promise": "^3.0.0",
     "pkginfo": "^0.4.0",
     "tello": "^1.0.6"

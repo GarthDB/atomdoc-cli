@@ -1,0 +1,101 @@
+[
+  {
+    "type": "FunctionDeclaration",
+    "name": "newFunc",
+    "parentClass": false,
+    "start": 164,
+    "end": 228,
+    "args": [
+      {
+        "name": "param1",
+        "optional": false
+      },
+      {
+        "name": "param2",
+        "optional": true
+      }
+    ],
+    "returns": [
+      {
+        "start": 205,
+        "end": 226,
+        "name": false
+      }
+    ]
+  },
+  {
+    "type": "ArrowFunctionExpression",
+    "name": "anotherFun",
+    "parentClass": false,
+    "start": 249,
+    "end": 364,
+    "args": [
+      {
+        "name": "optionalParam",
+        "optional": true
+      }
+    ],
+    "returns": [
+      {
+        "start": 298,
+        "end": 319,
+        "name": "optionalParam"
+      },
+      {
+        "start": 341,
+        "end": 362,
+        "name": "optionalParam"
+      }
+    ]
+  },
+  {
+    "type": "MethodDefinition",
+    "name": "constructor",
+    "parentClass": "Poop",
+    "start": 471,
+    "end": 516,
+    "args": [
+      {
+        "name": "test",
+        "optional": false
+      }
+    ],
+    "returns": []
+  },
+  {
+    "type": "FunctionExpression",
+    "name": "newVarFunction",
+    "parentClass": false,
+    "start": 541,
+    "end": 583,
+    "args": [
+      {
+        "name": "param",
+        "optional": false
+      }
+    ],
+    "returns": []
+  },
+  {
+    "type": "FunctionExpression",
+    "name": "FunctionDeclaration",
+    "parentClass": false,
+    "start": 803,
+    "end": 1081,
+    "args": [
+      {
+        "name": "node",
+        "optional": false
+      },
+      {
+        "name": "arr",
+        "optional": false
+      },
+      {
+        "name": "returnsArr",
+        "optional": false
+      }
+    ],
+    "returns": []
+  }
+]

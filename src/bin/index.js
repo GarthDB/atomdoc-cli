@@ -3,6 +3,7 @@ import program from 'commander';
 import pkginfo from 'pkginfo';
 import fs from 'fs';
 import AtomDocDocument from '../lib/';
+import basicReport from '../lib/basic_reporter';
 
 
 pkginfo(module, 'version', 'description');

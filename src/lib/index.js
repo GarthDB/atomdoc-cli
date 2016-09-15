@@ -1,22 +1,6 @@
 import readFile from 'fs-readfile-promise';
-import extract from 'extract-comments';
-import AtomDoc from 'atomdoc';
-
-/**
- *  Private: adjusts contents of block comments so the base indent is 0.
- *
- *  * `str` {String} block comment.
- *
- *  Returns {String} adjusted content.
- */
-const _fixIndent = (str) => {
-  const indentRegEx = /^(\s)*/;
-  const indent = str.match(indentRegEx)[0];
-  if (indent !== '') {
-    return str.replace(new RegExp(indent, ['g']), '\n').trim();
-  }
-  return str;
-};
+import parseContent from './parse_content';
+import inspectContent from './inspect_content';
 
 /**
  *  Result Class
@@ -58,14 +42,18 @@ export default class AtomDocDocument {
    *  Returns {Promise} that resolves with a {Result} instance.
    */
   parse() {
-    return readFile(this.filepath).then(buffer => {
-      const comments = extract(buffer.toString());
-      const atomDocs = [];
-      comments.forEach(comment => {
-        const value = _fixIndent(comment.value);
-        atomDocs.push(AtomDoc.parse(value));
-      });
-      return new Result(atomDocs);
+    return readFile(this.filepath).then(buffer => buffer.toString())
+    .then(parseContent)
+    .then((result) => {
+      const results = new Result(result);
+      return results;
+    });
+  }
+  inspect() {
+    return readFile(this.filepath).then(buffer => buffer.toString())
+    .then(inspectContent)
+    .then((result) => {
+      return result;
     });
   }
 }
