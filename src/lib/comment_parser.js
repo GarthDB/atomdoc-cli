@@ -1,30 +1,15 @@
 import AtomDoc from 'atomdoc';
 
-export default class CommentHandler {
+export default class CommentParser {
   /**
-   *  Public: creates a new CommentHandler instance
+   *  Public: creates a new CommentParser instance
    *
    *  * `commentsArray` Optional {Array} an array to add to the instance as the `comments` property.
    *
-   *  Returns {[type]} [description]
+   *  Returns {CommentParser} instance.
    */
   constructor(commentsArray = []) {
     this.comments = commentsArray;
-  }
-  /**
-   *  Public: a function that handles comments. Adds result to _comments {Array}.
-   *
-   *  * `block` {Boolean} true if comment is a block comment.
-   *  * `text` {String} block comment value.
-   *  * `start` {Integer} the start of the comment.
-   *  * `end` {Integer} the end of the comment.
-   */
-  parseComment(block, text, start, end) {
-    if (this.isAtomDocComment(block, text)) {
-      const value = this.fixIndent(this.removeBlockAstrisks(text));
-      const atomDoc = AtomDoc.parse(value);
-      this.comments.push(Object.assign({}, atomDoc, { start, end }));
-    }
   }
   /**
    *  Public: checks if comment is a valid AtomDoc block comment.
@@ -63,5 +48,21 @@ export default class CommentHandler {
       return str.replace(/^\s*\*/gm, '');
     }
     return str;
+  }
+
+  /**
+   *  Public: a function that handles comments. Adds result to _comments {Array}.
+   *
+   *  * `block` {Boolean} true if comment is a block comment.
+   *  * `text` {String} block comment value.
+   *  * `start` {Integer} the start of the comment.
+   *  * `end` {Integer} the end of the comment.
+   */
+  parseComment(block, text, start, end) {
+    if (this.isAtomDocComment(block, text)) {
+      const value = this.fixIndent(this.removeBlockAstrisks(text));
+      const atomDoc = AtomDoc.parse(value);
+      this.comments.push(Object.assign({}, atomDoc, { start, end }));
+    }
   }
 }

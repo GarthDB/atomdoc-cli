@@ -1,5 +1,3 @@
-import falafel from 'falafel';
-
 class Method {
   constructor(type, name, parentClass, start, end, args, returns) {
     const params = { type, name, parentClass, start, end, args, returns };
@@ -106,17 +104,15 @@ function _getHandler(nodeType, handlerObj) {
   return false;
 }
 
-export default function inspectContent(content) {
-  const _functions = [];
-  const _returns = [];
-  return new Promise(resolve => {
-    falafel(content, {
-      sourceType: 'module',
-      ecmaVersion: '6',
-    }, (node) => {
-      const handler = _getHandler(node.type, _typeHandlers);
-      if (handler) handler(node, _functions, _returns);
-      if (node.end === content.length) resolve(_functions);
-    });
-  });
+export default class ContentInspector {
+  constructor(content) {
+    this.content = content;
+    this.functions = [];
+    this.returns = [];
+  }
+  inspectNode(node, callback) {
+    const handler = _getHandler(node.type, _typeHandlers);
+    if (handler) handler(node, this.functions, this.returns);
+    if (node.end === this.content.length) callback(this.functions);
+  }
 }
