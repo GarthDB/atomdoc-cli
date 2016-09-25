@@ -6,14 +6,13 @@ import ContentInspector from '../src/lib/content_inspector';
 function inspect(filepath) {
   const content = fs.readFileSync(filepath, 'utf-8');
   const contentInspector = new ContentInspector(content);
-  return new Promise(resolve => {
-    falafel(content, {
-      sourceType: 'module',
-      ecmaVersion: '6',
-    }, (node) => {
-      contentInspector.inspectNode(node, resolve);
-    });
+  falafel(content, {
+    sourceType: 'module',
+    ecmaVersion: '6',
+  }, (node) => {
+    contentInspector.inspectNode(node);
   });
+  return contentInspector.promise;
 }
 
 test('should inspect a file correctly', t => {

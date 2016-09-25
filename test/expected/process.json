@@ -1,0 +1,92 @@
+{
+  "parserResult": [
+    {
+      "originalText": "Private: If `node.type` is `Identifier` this function returns the type of the parent node.\n\n* `node` {Object} Spidermonkey AST node.\n\nReturns {String} the Spidermonkey node type.",
+      "visibility": "Private",
+      "description": "If `node.type` is `Identifier` this function returns the type of the parent node.",
+      "summary": "If `node.type` is `Identifier` this function returns the type of the parent node.",
+      "arguments": [
+        {
+          "name": "node",
+          "description": "{Object} Spidermonkey AST node.",
+          "type": "Object",
+          "isOptional": false
+        }
+      ],
+      "returnValues": [
+        {
+          "type": "String",
+          "description": "Returns {String} the Spidermonkey node type."
+        }
+      ],
+      "start": 0,
+      "end": 202,
+      "name": "_getNodeType"
+    },
+    {
+      "originalText": "Private: Checks `node.type` to see if it is a function node.\n\n* `node` {Object} Spidermonkey AST node\n\nReturns {Boolean} if it is a function node.",
+      "visibility": "Private",
+      "description": "Checks `node.type` to see if it is a function node.",
+      "summary": "Checks `node.type` to see if it is a function node.",
+      "arguments": [
+        {
+          "name": "node",
+          "description": "{Object} Spidermonkey AST node",
+          "type": "Object",
+          "isOptional": false
+        }
+      ],
+      "returnValues": [
+        {
+          "type": "Boolean",
+          "description": "Returns {Boolean} if it is a function node."
+        }
+      ],
+      "start": 306,
+      "end": 476,
+      "name": "_nodeTest"
+    }
+  ],
+  "inpsectorResult": [
+    {
+      "type": "FunctionDeclaration",
+      "name": "_getNodeType",
+      "parentClass": false,
+      "start": 203,
+      "end": 304,
+      "args": [
+        {
+          "name": "node",
+          "optional": false
+        }
+      ],
+      "returns": [
+        {
+          "start": 235,
+          "end": 302,
+          "name": false
+        }
+      ]
+    },
+    {
+      "type": "FunctionDeclaration",
+      "name": "_nodeTest",
+      "parentClass": false,
+      "start": 477,
+      "end": 726,
+      "args": [
+        {
+          "name": "node",
+          "optional": false
+        }
+      ],
+      "returns": [
+        {
+          "start": 684,
+          "end": 724,
+          "name": false
+        }
+      ]
+    }
+  ]
+}

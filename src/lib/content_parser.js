@@ -1,26 +1,4 @@
 /**
- *  Result Class
- */
-class Result {
-  /**
-   *  Public: constructor for result instance.
-   *
-   *  * `atomDocs` {Array} of AtomDoc {Objects}
-   */
-  constructor(atomDocs) {
-    this.docs = atomDocs;
-  }
-  /**
-   *  Public: converts atomdocs result to {String}
-   *
-   *  Returns ready to print {String}
-   */
-  toString() {
-    return JSON.stringify(this.docs, null, 2);
-  }
-}
-
-/**
  *  Private: If `node.type` is `Identifier` this function returns the type of the parent node.
  *
  *  * `node` {Object} Spidermonkey AST node.
@@ -107,27 +85,63 @@ function _getNextCommentIndex(comments, node) {
   });
 }
 
+/**
+ * ContentParser Class
+ */
 export default class ContentParser {
+  /**
+   *  Public: ContentParser parses Spidermonkey AST nodes to extract function
+   *  and class names to add to AtomDoc parsed comment results provided by the
+   *  `commentParser` property. When the content parser finishes the last node
+   *  it resolves the `promise` {Promise} property passing the {Result} instance
+   *  back. Alternatively, you can use the `parseNode` `callback` parameter.
+   *
+   *  * `content` {String} Javscript file content being parsed
+   *  * `commentParser` {CommentParser} instance which has the `comments`
+   *    property that contains the atomdoc parsed comments.
+   *
+   *  Returns {ContentParser} instance.
+   */
   constructor(content, commentParser) {
     this.content = content;
     this.commentIndex = -1;
     this.captureNextFunctionName = false;
     this.commentParser = commentParser;
+    this.promise = new Promise((resolve) => {
+      this.resolve = resolve;
+    });
   }
-  parseNode(node, callback) {
-    if (this.captureNextFunctionName && _nodeTest(node)) {
-      _addFunctionName(node, this.commentParser.comments[this.commentIndex]);
-      this.captureNextFunctionName = false;
-    }
+  /**
+   *  Public: parses node and updates corresponding comments on `this.commentParser.comments`.
+   *
+   *  * `node` {Object} Spidermonkey AST node.
+   *  * `callback` (Optional) {Function} will be called after parsing the final node.
+   *    * `result` {Result} with an {Array} of AtomDoc comments.
+   */
+  parseNode(node, callback = null) {
+    // I assumed some nodes wouldn't be immediately following the comment so
+    // this would tell it to keep looking until it finds a node that would have
+    // documentation.
+    //
+    // if (this.captureNextFunctionName && _nodeTest(node)) {
+    //   _addFunctionName(node, this.commentParser.comments[this.commentIndex]);
+    //   this.captureNextFunctionName = false;
+    // }
     const nextCommentIndex = _getNextCommentIndex(this.commentParser.comments, node);
     if (nextCommentIndex > this.commentIndex) {
       this.commentIndex = nextCommentIndex;
       if (_nodeTest(node)) {
         _addFunctionName(node, this.commentParser.comments[this.commentIndex]);
-      } else {
-        this.captureNextFunctionName = true;
       }
+      // if (_nodeTest(node)) {
+      //   _addFunctionName(node, this.commentParser.comments[this.commentIndex]);
+      // } else {
+      //   this.captureNextFunctionName = true;
+      // }
     }
-    if (node.end === this.content.length) callback(new Result(this.commentParser.comments));
+    if (node.end === this.content.length) {
+      if (callback) callback(this.commentParser.comments);
+      this.resolve(this.commentParser.comments);
+    }
   }
 }

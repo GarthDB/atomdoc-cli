@@ -109,10 +109,13 @@ export default class ContentInspector {
     this.content = content;
     this.functions = [];
     this.returns = [];
+    this.promise = new Promise((resolve) => {
+      this.resolve = resolve;
+    });
   }
-  inspectNode(node, callback) {
+  inspectNode(node) {
     const handler = _getHandler(node.type, _typeHandlers);
     if (handler) handler(node, this.functions, this.returns);
-    if (node.end === this.content.length) callback(this.functions);
+    if (node.end === this.content.length) this.resolve(this.functions);
   }
 }
