@@ -21,7 +21,8 @@
       ],
       "start": 0,
       "end": 202,
-      "name": "_getNodeType"
+      "name": "_getNodeType",
+      "definitionLine": 8
     },
     {
       "originalText": "Private: Checks `node.type` to see if it is a function node.\n\n* `node` {Object} Spidermonkey AST node\n\nReturns {Boolean} if it is a function node.",
@@ -44,16 +45,18 @@
       ],
       "start": 306,
       "end": 476,
-      "name": "_nodeTest"
+      "name": "_nodeTest",
+      "definitionLine": 19
     }
   ],
-  "inpsectorResult": [
+  "inspectorResult": [
     {
       "type": "FunctionDeclaration",
       "name": "_getNodeType",
       "parentClass": false,
       "start": 203,
       "end": 304,
+      "definitionLine": 8,
       "args": [
         {
           "name": "node",
@@ -74,6 +77,7 @@
       "parentClass": false,
       "start": 477,
       "end": 726,
+      "definitionLine": 19,
       "args": [
         {
           "name": "node",

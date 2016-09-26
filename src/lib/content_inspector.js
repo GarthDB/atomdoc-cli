@@ -1,6 +1,6 @@
-class Method {
-  constructor(type, name, parentClass, start, end, args, returns) {
-    const params = { type, name, parentClass, start, end, args, returns };
+class InspectorMethod {
+  constructor(type, name, parentClass, start, end, definitionLine, args, returns) {
+    const params = { type, name, parentClass, start, end, definitionLine, args, returns };
     Object.assign(this, params);
   }
 }
@@ -49,14 +49,16 @@ const _typeHandlers = {
       const name = node.parent.key.name || false;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
-      const result = new Method(node.type, name, false, node.start, node.end, args, returns);
+      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
+        node.loc.start.line, args, returns);
       arr.push(result);
     }
     if (node.parent.type === 'VariableDeclarator') {
       const name = node.parent.id.name || false;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
-      const result = new Method(node.type, name, false, node.start, node.end, args, returns);
+      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
+        node.loc.start.line, args, returns);
       arr.push(result);
     }
   },
@@ -64,7 +66,8 @@ const _typeHandlers = {
     const name = node.id.name || false;
     const args = _parseParams(node.params);
     const returns = _getReturns(node, returnsArr);
-    const result = new Method(node.type, name, false, node.start, node.end, args, returns);
+    const result = new InspectorMethod(node.type, name, false, node.start, node.end,
+      node.loc.start.line, args, returns);
     arr.push(result);
   },
   ArrowFunctionExpression(node, arr, returnsArr) {
@@ -72,7 +75,8 @@ const _typeHandlers = {
       const name = node.parent.id.name;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
-      const result = new Method(node.type, name, false, node.start, node.end, args, returns);
+      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
+        node.loc.start.line, args, returns);
       arr.push(result);
     }
   },
@@ -84,7 +88,8 @@ const _typeHandlers = {
       parentClass = node.parent.parent.id.name;
     } catch (err) { /**/ }
     const returns = _getReturns(node, returnsArr);
-    const result = new Method(node.type, name, parentClass, node.start, node.end, args, returns);
+    const result = new InspectorMethod(node.type, name, parentClass, node.start, node.end,
+      node.loc.start.line, args, returns);
     arr.push(result);
   },
   ReturnStatement(node, arr, returnsArr) {

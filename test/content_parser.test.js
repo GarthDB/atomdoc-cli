@@ -12,6 +12,7 @@ function parse(filepath) {
     sourceType: 'module',
     ecmaVersion: '6',
     onComment: commentParser.parseComment.bind(commentParser),
+    locations: true,
   }, (node) => {
     contentParser.parseNode(node);
   });
@@ -54,6 +55,7 @@ test('should support class functions', t => {
   return parse('./fixtures/class.js').then(result => {
     result[0].start = 0;
     result[0].end = 132;
+    result[0].definitionLine = 8;
     delete result[0].className;
     t.deepEqual(expected, result);
   }).catch(t.fail);

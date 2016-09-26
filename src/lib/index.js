@@ -28,12 +28,13 @@ export default class AtomDocDocument {
       sourceType: 'module',
       ecmaVersion: '6',
       onComment: commentParser.parseComment.bind(commentParser),
+      locations: true,
     }, (node) => {
       contentInspector.inspectNode(node);
       contentParser.parseNode(node);
     });
     return Promise.all([contentParser.promise, contentInspector.promise]).then(result =>
-      Object.assign({}, { parserResult: result[0], inpsectorResult: result[1] })
+      Object.assign({}, { parserResult: result[0], inspectorResult: result[1] })
     );
   }
 }

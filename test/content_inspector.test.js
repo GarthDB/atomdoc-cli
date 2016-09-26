@@ -9,6 +9,7 @@ function inspect(filepath) {
   falafel(content, {
     sourceType: 'module',
     ecmaVersion: '6',
+    locations: true,
   }, (node) => {
     contentInspector.inspectNode(node);
   });
@@ -22,6 +23,7 @@ test('should inspect a file correctly', t => {
     parentClass: false,
     start: 426,
     end: 687,
+    definitionLine: 16,
     args: [{ name: 'node', optional: false }],
     returns: [{
       start: 668,
@@ -34,7 +36,7 @@ test('should inspect a file correctly', t => {
   }).catch(t.fail);
 });
 
-test('full instpection test', t => {
+test('full inspection test', t => {
   inspect('./fixtures/inspection_test.js');
   const expected = JSON.parse(fs.readFileSync('./expected/inspection_test.json', 'utf-8'));
   return inspect('./fixtures/inspection_test.js').then(result => {

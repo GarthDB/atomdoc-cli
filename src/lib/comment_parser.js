@@ -62,7 +62,7 @@ export default class CommentParser {
     if (this.isAtomDocComment(block, text)) {
       const value = this.fixIndent(this.removeBlockAstrisks(text));
       const atomDoc = AtomDoc.parse(value);
-      this.comments.push(Object.assign({}, atomDoc, { start, end }));
+      this.comments.push(Object.assign(atomDoc, { start, end }));
     }
   }
 }

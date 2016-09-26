@@ -5,6 +5,7 @@
     "parentClass": false,
     "start": 164,
     "end": 228,
+    "definitionLine": 9,
     "args": [
       {
         "name": "param1",
@@ -29,6 +30,7 @@
     "parentClass": false,
     "start": 249,
     "end": 364,
+    "definitionLine": 13,
     "args": [
       {
         "name": "optionalParam",
@@ -54,6 +56,7 @@
     "parentClass": "Poop",
     "start": 471,
     "end": 516,
+    "definitionLine": 23,
     "args": [
       {
         "name": "test",
@@ -68,6 +71,7 @@
     "parentClass": false,
     "start": 541,
     "end": 583,
+    "definitionLine": 28,
     "args": [
       {
         "name": "param",
@@ -82,6 +86,7 @@
     "parentClass": false,
     "start": 803,
     "end": 1081,
+    "definitionLine": 40,
     "args": [
       {
         "name": "node",

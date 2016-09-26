@@ -28,6 +28,7 @@
     ],
     "start": 0,
     "end": 425,
-    "name": "_isAtruleDescendant"
+    "name": "_isAtruleDescendant",
+    "definitionLine": 16
   }
 ]

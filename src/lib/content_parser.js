@@ -60,6 +60,7 @@ function _getFunctionName(node) {
  */
 function _addFunctionName(node, comment) {
   comment.name = _getFunctionName(node);
+  comment.definitionLine = node.loc.start.line;
   if (_getNodeType(node) === 'MethodDefinition') {
     try {
       comment.className = node.parent.parent.parent.id.name;
