@@ -2,7 +2,7 @@
  *  Public: A FunctionDeclaration
  *
  *  * `param1` {String} description
- *  * `param2` optional {Object} description
+ *  * `param2` {Object} description
  *
  *  Returns {Boolean} always true.
  */
@@ -18,7 +18,6 @@ const anotherFun = (optionalParam = false) => {
 export default class Poop {
   /**
    *  Public: makes a new poop instance
-   *  Returns {Object}
    */
   constructor(test) {
     this.test = test;
@@ -37,7 +36,7 @@ const _typeHandlers = {
    *  * `arr` {Array} of {Objects}
    *  * `returnsArr` {Array} of Returns
    */
-  FunctionDeclaration(node, arr, returnsArr) {
+  objectFunction(node, arr, returnsArr) {
     const name = node.id.name || false;
     const args = _parseParams(node.params);
     const returns = _getReturns(node, returnsArr);

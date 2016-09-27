@@ -21,6 +21,7 @@
       ],
       "start": 0,
       "end": 202,
+      "className": false,
       "name": "_getNodeType",
       "definitionLine": 8
     },
@@ -45,6 +46,7 @@
       ],
       "start": 306,
       "end": 476,
+      "className": false,
       "name": "_nodeTest",
       "definitionLine": 19
     }
@@ -53,7 +55,7 @@
     {
       "type": "FunctionDeclaration",
       "name": "_getNodeType",
-      "parentClass": false,
+      "className": false,
       "start": 203,
       "end": 304,
       "definitionLine": 8,
@@ -74,7 +76,7 @@
     {
       "type": "FunctionDeclaration",
       "name": "_nodeTest",
-      "parentClass": false,
+      "className": false,
       "start": 477,
       "end": 726,
       "definitionLine": 19,

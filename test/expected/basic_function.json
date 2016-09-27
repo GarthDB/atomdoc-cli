@@ -28,6 +28,7 @@
     ],
     "start": 0,
     "end": 425,
+    "className": false,
     "name": "_isAtruleDescendant",
     "definitionLine": 16
   }

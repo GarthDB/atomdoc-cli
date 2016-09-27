@@ -56,7 +56,7 @@ test('should support class functions', t => {
     result[0].start = 0;
     result[0].end = 132;
     result[0].definitionLine = 8;
-    delete result[0].className;
+    result[0].className = false;
     t.deepEqual(expected, result);
   }).catch(t.fail);
 });
@@ -80,6 +80,13 @@ test('should support anon arrow functions', t => {
 test('should support multiple functions', t => {
   const expected = JSON.parse(fs.readFileSync('./expected/multiple_functions.json', 'utf-8'));
   return parse('./fixtures/multiple_functions.js').then(result => {
+    t.deepEqual(expected, result);
+  }).catch(t.fail);
+});
+
+test('should support object property functions', t => {
+  const expected = JSON.parse(fs.readFileSync('./expected/object_property.json', 'utf-8'));
+  return parse('./fixtures/object_property.js').then(result => {
     t.deepEqual(expected, result);
   }).catch(t.fail);
 });

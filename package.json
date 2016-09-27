@@ -47,7 +47,8 @@
   "nyc": {
     "include": [
       "src/lib/*.js",
-      "bin/index.js"
+      "bin/index.js",
+      "lib/basic_reporter.js"
     ],
     "require": [
       "babel-register"

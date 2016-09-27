@@ -1,6 +1,6 @@
 class InspectorMethod {
-  constructor(type, name, parentClass, start, end, definitionLine, args, returns) {
-    const params = { type, name, parentClass, start, end, definitionLine, args, returns };
+  constructor(type, name, className, start, end, definitionLine, args, returns) {
+    const params = { type, name, className, start, end, definitionLine, args, returns };
     Object.assign(this, params);
   }
 }
@@ -44,6 +44,24 @@ function _parseParams(params) {
 }
 
 const _typeHandlers = {
+  ArrowFunctionExpression(node, arr, returnsArr) {
+    if (node.parent.type === 'VariableDeclarator') {
+      const name = node.parent.id.name;
+      const args = _parseParams(node.params);
+      const returns = _getReturns(node, returnsArr);
+      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
+        node.loc.start.line, args, returns);
+      arr.push(result);
+    }
+  },
+  FunctionDeclaration(node, arr, returnsArr) {
+    const name = node.id.name || false;
+    const args = _parseParams(node.params);
+    const returns = _getReturns(node, returnsArr);
+    const result = new InspectorMethod(node.type, name, false, node.start, node.end,
+      node.loc.start.line, args, returns);
+    arr.push(result);
+  },
   FunctionExpression(node, arr, returnsArr) {
     if (node.parent.type === 'Property') {
       const name = node.parent.key.name || false;
@@ -62,33 +80,15 @@ const _typeHandlers = {
       arr.push(result);
     }
   },
-  FunctionDeclaration(node, arr, returnsArr) {
-    const name = node.id.name || false;
-    const args = _parseParams(node.params);
-    const returns = _getReturns(node, returnsArr);
-    const result = new InspectorMethod(node.type, name, false, node.start, node.end,
-      node.loc.start.line, args, returns);
-    arr.push(result);
-  },
-  ArrowFunctionExpression(node, arr, returnsArr) {
-    if (node.parent.type === 'VariableDeclarator') {
-      const name = node.parent.id.name;
-      const args = _parseParams(node.params);
-      const returns = _getReturns(node, returnsArr);
-      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
-        node.loc.start.line, args, returns);
-      arr.push(result);
-    }
-  },
   MethodDefinition(node, arr, returnsArr) {
     const name = node.key.name;
     const args = _parseParams(node.value.params);
-    let parentClass = false;
+    let className = false;
     try {
-      parentClass = node.parent.parent.id.name;
+      className = node.parent.parent.id.name;
     } catch (err) { /**/ }
     const returns = _getReturns(node, returnsArr);
-    const result = new InspectorMethod(node.type, name, parentClass, node.start, node.end,
+    const result = new InspectorMethod(node.type, name, className, node.start, node.end,
       node.loc.start.line, args, returns);
     arr.push(result);
   },

@@ -20,7 +20,7 @@ test('should inspect a file correctly', t => {
   const expected = [{
     type: 'FunctionDeclaration',
     name: '_isAtruleDescendant',
-    parentClass: false,
+    className: false,
     start: 426,
     end: 687,
     definitionLine: 16,

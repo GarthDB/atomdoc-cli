@@ -2,11 +2,18 @@
 import chalk from 'chalk';
 
 const missing = chalk.red;
-const incomplete = chalk.yellow;
+// const incomplete = chalk.yellow;
 const complete = chalk.green;
 const headerMissing = chalk.bgRed.black;
 const headerIncomplete = chalk.bgYellow.black;
 const headerComplete = chalk.bgGreen.black;
+
+function _truncate(string, n) {
+  const isTooLong = string.length > n;
+  let s = isTooLong ? string.substr(0, n - 1) : this;
+  s = (isTooLong) ? s.substr(0, s.lastIndexOf(' ')) : s;
+  return isTooLong ? `${s}…` : s;
+}
 
 
 class Comparison {
@@ -14,6 +21,8 @@ class Comparison {
     Object.assign(this, {
       label, val1, val2, validMessage, invalidMessage, dependentLabel,
     });
+    this.val1 = val1 || false;
+    this.val2 = val2 || false;
     Object.assign(this, this.compare());
   }
   compare() {
@@ -42,12 +51,22 @@ function _findAtomdoc(parserResult, definitionLine) {
 
 export default function basicReport(result) {
   result.inspectorResult.forEach((method) => {
+    const headerText = (method.className) ? `${method.className}.${method.name}` : method.name;
+    let headerStyle = headerComplete;
     const atomDocMethod = _findAtomdoc(result.parserResult, method.definitionLine);
+    if (!atomDocMethod) {
+      headerStyle = headerMissing;
+      console.log(headerStyle(headerText));
+      console.log(missing(
+        `  Function on line ${method.definitionLine} is missing documentation.\n`
+      ));
+      return;
+    }
     if (!{}.hasOwnProperty.call(atomDocMethod, 'arguments')) atomDocMethod.arguments = [];
     if (!{}.hasOwnProperty.call(atomDocMethod, 'returnValues')) atomDocMethod.returnValues = [];
     const validationArr = [
       new Comparison('Name', method.name, atomDocMethod.name, method.name),
-      new Comparison('Class', method.parentClass, atomDocMethod.className, method.parentClass),
+      new Comparison('Class', method.className, atomDocMethod.className, method.className),
       new Comparison('Argument Count', method.args.length,
         atomDocMethod.arguments.length, method.args.length),
     ];
@@ -58,7 +77,10 @@ export default function basicReport(result) {
       );
       if (arg.optional) {
         validationArr.push(
-          new Comparison('Argument Optional', arg.optional, atomArg.isOptional, arg.optional)
+          new Comparison('Argument Optional', arg.optional, atomArg.isOptional, arg.optional,
+          `Add optional to argument description:
+    * \`${atomArg.name}\` (optional) ${_truncate(atomArg.description, 10)}`
+          )
         );
       }
     });
@@ -66,14 +88,12 @@ export default function basicReport(result) {
       new Comparison('Return', Boolean(method.returns.length),
         Boolean(atomDocMethod.returnValues.length), Boolean(method.returns.length))
     );
-    let headerStyle = headerComplete;
     let report = '';
-    const headerText = (method.parentClass) ? `${method.parentClass}.${method.name}` : method.name;
     validationArr.forEach((comparison) => {
-      if (!comparison.match) headerStyle = headerMissing;
-      report += `\n${comparison.message}`;
+      if (!comparison.match) headerStyle = headerIncomplete;
+      report += `  ${comparison.message}\n`;
     });
     console.log(headerStyle(headerText));
-    console.log(report.trim());
+    console.log(report);
   });
 }

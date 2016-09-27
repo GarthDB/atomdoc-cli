@@ -2,9 +2,9 @@
   {
     "type": "FunctionDeclaration",
     "name": "newFunc",
-    "parentClass": false,
-    "start": 164,
-    "end": 228,
+    "className": false,
+    "start": 155,
+    "end": 219,
     "definitionLine": 9,
     "args": [
       {
@@ -18,8 +18,8 @@
     ],
     "returns": [
       {
-        "start": 205,
-        "end": 226,
+        "start": 196,
+        "end": 217,
         "name": false
       }
     ]
@@ -27,9 +27,9 @@
   {
     "type": "ArrowFunctionExpression",
     "name": "anotherFun",
-    "parentClass": false,
-    "start": 249,
-    "end": 364,
+    "className": false,
+    "start": 240,
+    "end": 355,
     "definitionLine": 13,
     "args": [
       {
@@ -39,13 +39,13 @@
     ],
     "returns": [
       {
-        "start": 298,
-        "end": 319,
+        "start": 289,
+        "end": 310,
         "name": "optionalParam"
       },
       {
-        "start": 341,
-        "end": 362,
+        "start": 332,
+        "end": 353,
         "name": "optionalParam"
       }
     ]
@@ -53,10 +53,10 @@
   {
     "type": "MethodDefinition",
     "name": "constructor",
-    "parentClass": "Poop",
-    "start": 471,
-    "end": 516,
-    "definitionLine": 23,
+    "className": "Poop",
+    "start": 439,
+    "end": 484,
+    "definitionLine": 22,
     "args": [
       {
         "name": "test",
@@ -68,10 +68,10 @@
   {
     "type": "FunctionExpression",
     "name": "newVarFunction",
-    "parentClass": false,
-    "start": 541,
-    "end": 583,
-    "definitionLine": 28,
+    "className": false,
+    "start": 509,
+    "end": 551,
+    "definitionLine": 27,
     "args": [
       {
         "name": "param",
@@ -82,11 +82,11 @@
   },
   {
     "type": "FunctionExpression",
-    "name": "FunctionDeclaration",
-    "parentClass": false,
-    "start": 803,
-    "end": 1081,
-    "definitionLine": 40,
+    "name": "objectFunction",
+    "className": false,
+    "start": 766,
+    "end": 1044,
+    "definitionLine": 39,
     "args": [
       {
         "name": "node",

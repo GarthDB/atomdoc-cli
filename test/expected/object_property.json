@@ -1,0 +1,33 @@
+[
+  {
+    "originalText": "Public: object function\n\n* `node` {Object} Spidermonkey AST node\n* `arr` {Array} of {Objects}\n* `returnsArr` {Array} of Returns",
+    "visibility": "Public",
+    "description": "object function",
+    "summary": "object function",
+    "arguments": [
+      {
+        "name": "node",
+        "description": "{Object} Spidermonkey AST node",
+        "type": "Object",
+        "isOptional": false
+      },
+      {
+        "name": "arr",
+        "description": "{Array} of {Objects}",
+        "type": "Array",
+        "isOptional": false
+      },
+      {
+        "name": "returnsArr",
+        "description": "{Array} of Returns",
+        "type": "Array",
+        "isOptional": false
+      }
+    ],
+    "start": 31,
+    "end": 196,
+    "className": false,
+    "name": "objectFunction",
+    "definitionLine": 9
+  }
+]
