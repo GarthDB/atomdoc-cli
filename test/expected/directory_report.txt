@@ -1,0 +1,8 @@
+./fixtures/directory/has_comment.js list (Public)
+Examples: Missing 
+
+No missing AtomDocs in ./fixtures/directory/has_errors.js
+./fixtures/directory/has_errors.js newVarFunction
+Function on line 20 is missing documentation.
+
+No missing AtomDocs in ./fixtures/directory/subdir/basic_function.js

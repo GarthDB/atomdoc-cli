@@ -53,3 +53,13 @@ test.cb('should return no error message when no errors', t => {
   .run('atomdoc ./fixtures/basic_function.js')
   .end(t.end);
 });
+
+test.cb('should run atomdoc on js files in directory', t => {
+  nixt()
+  .expect((result) => {
+    const expected = read('./expected/directory_report.txt');
+    t.is(result.stdout, expected);
+  })
+  .run('atomdoc ./fixtures/directory')
+  .end(t.end);
+});
