@@ -62,6 +62,7 @@
     "commander": "^2.9.0",
     "falafel": "^2.0.0",
     "fs-readfile-promise": "^3.0.0",
+    "glob": "^7.1.0",
     "pkginfo": "^0.4.0",
     "resolve": "^1.1.7",
     "tello": "^1.0.6"

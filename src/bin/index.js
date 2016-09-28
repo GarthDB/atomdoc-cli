@@ -5,6 +5,7 @@ import pkginfo from 'pkginfo';
 import resolve from 'resolve';
 import fs from 'fs';
 import path from 'path';
+import glob from 'glob';
 import AtomDocDocument from '../lib/';
 
 pkginfo(module, 'version', 'description');
@@ -19,38 +20,47 @@ program
   .option('-v, --verbose', 'Show full report, without it, this tool will only show errors')
   .parse(process.argv);
 
-let content;
 let reporter;
-try {
-  content = fs.readFileSync(program.args[0], 'utf-8');
-  if (program.reporter === 'false') {
-    reporter = (result) => {
-      console.log(JSON.stringify(result.parserResult, null, 2));
-    };
-  } else if (program.reporter) {
-    const basedir = path.normalize(process.cwd());
-    const reporterPath = resolve.sync(program.reporter, { basedir });
-    reporter = require(reporterPath);
-  } else {
-    reporter = require(resolve.sync('../lib/basic_reporter'));
-  }
-} catch (err) {
-  console.error(err);
-  process.exit(1);
+let pattern = program.args[0];
+if (program.reporter === 'false') {
+  reporter = (result) => {
+    console.log(JSON.stringify(result.parserResult, null, 2));
+  };
+} else if (program.reporter) {
+  const basedir = path.normalize(process.cwd());
+  const reporterPath = resolve.sync(program.reporter, { basedir });
+  reporter = require(reporterPath);
+} else {
+  reporter = require(resolve.sync('../lib/basic_reporter'));
 }
 
-const doc = new AtomDocDocument(content);
+try {
+  const stats = fs.lstatSync(pattern);
+  if (stats.isDirectory()) pattern = `${pattern}/**/*.js`;
+} catch (err) { /* */ }
 
-if (program.outputPath === true) program.outputPath = './api.json';
-
-const verbose = program.verbose || false;
-
-doc.process().then(result => {
-  result.filename = program.args[0];
-  if (program.outputPath) {
-    fs.writeFileSync(program.outputPath, JSON.stringify(result.parserResult, null, 2), 'utf8');
-    console.log(`File ${program.outputPath} written.`);
-  } else {
-    reporter(result, verbose);
+glob(pattern, {}, (er, files) => {
+  if (er) {
+    console.error(er);
+    process.exit(1);
   }
+  if (files.length === 0) {
+    console.error(new Error(`No files match '${pattern}'`));
+    process.exit(1);
+  }
+  files.forEach(filepath => {
+    const content = fs.readFileSync(filepath, 'utf-8');
+    const doc = new AtomDocDocument(content);
+    if (program.outputPath === true) program.outputPath = './api.json';
+    const verbose = program.verbose || false;
+    doc.process().then(result => {
+      result.filename = filepath;
+      if (program.outputPath) {
+        fs.writeFileSync(program.outputPath, JSON.stringify(result.parserResult, null, 2), 'utf8');
+        console.log(`File ${program.outputPath} written.`);
+      } else {
+        reporter(result, verbose);
+      }
+    });
+  });
 });

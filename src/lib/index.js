@@ -29,6 +29,7 @@ export default class AtomDocDocument {
       ecmaVersion: '6',
       onComment: commentParser.parseComment.bind(commentParser),
       locations: true,
+      allowHashBang: true,
     }, (node) => {
       contentInspector.inspectNode(node);
       contentParser.parseNode(node);
