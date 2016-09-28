@@ -63,7 +63,7 @@ test.cb('should error out if file doesn\'t exist', t => {
   nixt()
   .expect((result) => {
     const regex = /^{ Error: ENOENT: no such file or directory, open 'nonexistent\.js'/;
-    t.regex(result.stdout.trim(), regex);
+    t.regex(result.stderr.trim(), regex);
   })
   .run('atomdoc nonexistent.js')
   .end(t.end);

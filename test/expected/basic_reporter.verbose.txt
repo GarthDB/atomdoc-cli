@@ -1,0 +1,31 @@
+./fixtures/basic_reporter.js newFunc (Public)
+Name:      newFunc 
+Class:     false   
+Arg Count: 2       
+Arg Name:  param1  
+Arg Name:  param2  
+Return:    true    
+Examples:  Missing 
+
+./fixtures/basic_reporter.js anotherFun
+Function on line 13 is missing documentation.
+
+./fixtures/basic_reporter.js Poop.constructor (Public)
+Name:      constructor 
+Class:     Poop        
+Arg Count: 1           
+Arg Name:  test        
+Return:    false       
+Examples:  1           
+
+./fixtures/basic_reporter.js newVarFunction
+Function on line 37 is missing documentation.
+
+./fixtures/basic_reporter.js objectFunction (Public)
+Name:      objectFunction 
+Class:     false          
+Arg Count: 3              
+Arg Name:  arr            
+Arg Name:  returnsArr     
+Return:    false          
+Examples:  Missing

@@ -30,7 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint-disable global-require */
 (0, _pkginfo2.default)(module, 'version', 'description');
 
-_commander2.default.version(module.exports.version).description(module.exports.description).usage('<file>').option('-o, --output-path [filename]', 'Where to write out, defaults to stdout if not specified.').option('-r, --reporter [packagename]', 'Path or package name of a reporter to use').parse(process.argv);
+_commander2.default.version(module.exports.version).description(module.exports.description).usage('<file>').option('-o, --output-path [filename]', 'Where to write out, defaults to stdout if not specified.').option('-r, --reporter [packagename]', 'Path or package name of a reporter to use').option('-v, --verbose', 'Show full report, without it, this tool will only show errors').parse(process.argv);
 
 var content = void 0;
 var reporter = void 0;
@@ -48,17 +48,22 @@ try {
     reporter = require(_resolve2.default.sync('../lib/basic_reporter'));
   }
 } catch (err) {
-  console.log(err);
+  console.error(err);
+  process.exit(1);
 }
+
 var doc = new _lib2.default(content);
 
 if (_commander2.default.outputPath === true) _commander2.default.outputPath = './api.json';
 
+var verbose = _commander2.default.verbose || false;
+
 doc.process().then(function (result) {
+  result.filename = _commander2.default.args[0];
   if (_commander2.default.outputPath) {
     _fs2.default.writeFileSync(_commander2.default.outputPath, JSON.stringify(result.parserResult, null, 2), 'utf8');
     console.log('File ' + _commander2.default.outputPath + ' written.');
   } else {
-    reporter(result);
+    reporter(result, verbose);
   }
 });

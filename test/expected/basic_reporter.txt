@@ -1,0 +1,12 @@
+./fixtures/basic_reporter.js newFunc (Public)
+Examples: Missing 
+
+./fixtures/basic_reporter.js anotherFun
+Function on line 13 is missing documentation.
+
+No missing AtomDocs in ./fixtures/basic_reporter.js
+./fixtures/basic_reporter.js newVarFunction
+Function on line 37 is missing documentation.
+
+./fixtures/basic_reporter.js objectFunction (Public)
+Examples: Missing

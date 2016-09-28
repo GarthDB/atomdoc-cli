@@ -16,6 +16,7 @@ program
   .option('-o, --output-path [filename]',
     'Where to write out, defaults to stdout if not specified.')
   .option('-r, --reporter [packagename]', 'Path or package name of a reporter to use')
+  .option('-v, --verbose', 'Show full report, without it, this tool will only show errors')
   .parse(process.argv);
 
 let content;
@@ -34,17 +35,22 @@ try {
     reporter = require(resolve.sync('../lib/basic_reporter'));
   }
 } catch (err) {
-  console.log(err);
+  console.error(err);
+  process.exit(1);
 }
+
 const doc = new AtomDocDocument(content);
 
 if (program.outputPath === true) program.outputPath = './api.json';
 
+const verbose = program.verbose || false;
+
 doc.process().then(result => {
+  result.filename = program.args[0];
   if (program.outputPath) {
     fs.writeFileSync(program.outputPath, JSON.stringify(result.parserResult, null, 2), 'utf8');
     console.log(`File ${program.outputPath} written.`);
   } else {
-    reporter(result);
+    reporter(result, verbose);
   }
 });
