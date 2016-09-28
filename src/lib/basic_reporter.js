@@ -27,9 +27,9 @@ class Comparison {
     const match = Boolean(this.val1 === this.val2);
     const styleFun = (match) ? this.complete : this.missing;
     if (!match) process.exitCode = 1;
-    let message = [`${this.label}:`, styleFun(this.validMessage)];
+    let message = [`${this.label}:`, styleFun(this.validMessage), ''];
     if (!match && this.invalidMessage) {
-      message = [`${this.label}:`, this.invalidMessage];
+      message = [`${this.label}:`, this.invalidMessage, ''];
     } else if (!match) {
       message = [`${this.label}:`, headerComplete(this.val1), headerMissing(this.val2)];
     }
@@ -88,16 +88,20 @@ export default function basicReport(result, showAll = true) {
     );
     const report = [];
     validationArr.forEach((comparison) => {
-      if (!comparison.match) headerStyle = headerMissing;
-      if (comparison.match && showAll) report.push(comparison.message);
+      if (!comparison.match) {
+        headerStyle = headerMissing;
+        report.push(comparison.message);
+      } else if (showAll) {
+        report.push(comparison.message);
+      }
     });
     if (atomDocMethod.visibility === 'Public') {
       if (!atomDocMethod.examples) {
         headerStyle = headerMissing;
-        report.push(['Examples:', missing('Missing')]);
+        report.push(['Examples:', missing('Missing'), 'Add `## Examples` to public methods']);
         process.exitCode = 1;
       } else if (showAll) {
-        report.push(['Examples:', complete(atomDocMethod.examples.length)]);
+        report.push(['Examples:', complete(atomDocMethod.examples.length), '']);
       }
     }
     if (report.length || showAll) {

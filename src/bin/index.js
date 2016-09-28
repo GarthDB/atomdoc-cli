@@ -40,10 +40,6 @@ try {
 } catch (err) { /* */ }
 
 glob(pattern, {}, (er, files) => {
-  if (er) {
-    console.error(er);
-    process.exit(1);
-  }
   if (files.length === 0) {
     console.error(new Error(`No files match '${pattern}'`));
     process.exit(1);
