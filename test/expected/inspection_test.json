@@ -1,0 +1,148 @@
+[
+  {
+    "type": "FunctionDeclaration",
+    "name": "newFunc",
+    "className": false,
+    "start": 155,
+    "end": 219,
+    "definitionLine": 9,
+    "args": [
+      {
+        "name": "param1",
+        "optional": false
+      },
+      {
+        "name": "param2",
+        "optional": true
+      }
+    ],
+    "returns": [
+      {
+        "start": 196,
+        "end": 217,
+        "name": false
+      }
+    ]
+  },
+  {
+    "type": "ArrowFunctionExpression",
+    "name": "anotherFun",
+    "className": false,
+    "start": 240,
+    "end": 355,
+    "definitionLine": 13,
+    "args": [
+      {
+        "name": "optionalParam",
+        "optional": true
+      }
+    ],
+    "returns": [
+      {
+        "start": 289,
+        "end": 310,
+        "name": "optionalParam"
+      },
+      {
+        "start": 332,
+        "end": 353,
+        "name": "optionalParam"
+      }
+    ]
+  },
+  {
+    "type": "MethodDefinition",
+    "name": "constructor",
+    "className": "Poop",
+    "start": 439,
+    "end": 607,
+    "definitionLine": 22,
+    "args": [
+      {
+        "name": "test",
+        "optional": false
+      }
+    ],
+    "returns": []
+  },
+  {
+    "type": "FunctionExpression",
+    "name": "newVarFunction",
+    "className": false,
+    "start": 631,
+    "end": 663,
+    "definitionLine": 30,
+    "args": [
+      {
+        "name": "val",
+        "optional": false
+      }
+    ],
+    "returns": [
+      {
+        "start": 650,
+        "end": 661,
+        "name": "val"
+      }
+    ]
+  },
+  {
+    "type": "FunctionExpression",
+    "name": "newVarFunction",
+    "className": false,
+    "start": 681,
+    "end": 723,
+    "definitionLine": 33,
+    "args": [
+      {
+        "name": "param",
+        "optional": false
+      }
+    ],
+    "returns": []
+  },
+  {
+    "type": "ArrowFunctionExpression",
+    "name": "newVarFunction",
+    "className": false,
+    "start": 741,
+    "end": 767,
+    "definitionLine": 36,
+    "args": [
+      {
+        "name": "oneMore",
+        "optional": false
+      }
+    ],
+    "returns": [
+      {
+        "start": 758,
+        "end": 765,
+        "name": false
+      }
+    ]
+  },
+  {
+    "type": "FunctionExpression",
+    "name": "objectFunction",
+    "className": false,
+    "start": 982,
+    "end": 1260,
+    "definitionLine": 48,
+    "args": [
+      {
+        "name": "node",
+        "optional": false
+      },
+      {
+        "name": "arr",
+        "optional": false
+      },
+      {
+        "name": "returnsArr",
+        "optional": false
+      }
+    ],
+    "returns": []
+  }
+]

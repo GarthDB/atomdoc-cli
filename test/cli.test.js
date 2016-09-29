@@ -46,7 +46,7 @@ test.cb('should generate correct output', t => {
     const expected = read('./expected/basic_function.json');
     t.is(result.stdout.trim(), expected);
   })
-  .run('atomdoc ./fixtures/basic_function.js')
+  .run('atomdoc --reporter false ./fixtures/basic_function.js')
   .end(t.end);
 });
 test.cb('should write json file', t => {
@@ -62,15 +62,18 @@ test.cb('should write json file', t => {
 test.cb('should error out if file doesn\'t exist', t => {
   nixt()
   .expect((result) => {
-    const expected =
-`{ Error: ENOENT: no such file or directory, open 'nonexistent.js'
-    at Error (native)
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: 'nonexistent.js' }`;
-    t.is(result.stdout.trim(), expected.trim());
+    const regex = /^Error: No files match 'nonexistent\.js'/;
+    t.regex(result.stderr.trim(), regex);
   })
   .run('atomdoc nonexistent.js')
+  .end(t.end);
+});
+test.cb('should use a custom reporter', t => {
+  nixt()
+  .expect((result) => {
+    const expected = `${read('./expected/basic_function.json').trim()}\nfrom console reporter`;
+    t.is(result.stdout.trim(), expected);
+  })
+  .run('atomdoc --reporter="./fixtures/console_reporter.js" ./fixtures/basic_function.js')
   .end(t.end);
 });

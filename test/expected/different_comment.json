@@ -1,0 +1,52 @@
+[
+  {
+    "originalText": "Public: just returns `val`.\n\n* `val` {String} any string.\n\nReturns {String} same `val`.",
+    "visibility": "Public",
+    "description": "just returns `val`.",
+    "summary": "just returns `val`.",
+    "arguments": [
+      {
+        "name": "val",
+        "description": "{String} any string.",
+        "type": "String",
+        "isOptional": false
+      }
+    ],
+    "returnValues": [
+      {
+        "type": "String",
+        "description": "Returns {String} same `val`."
+      }
+    ],
+    "start": 0,
+    "end": 111,
+    "className": false,
+    "name": "list",
+    "definitionLine": 8
+  },
+  {
+    "originalText": "Public: parses a string representing an array into an Array.\n\n* `val` {String} list string.\n\nReturns {Array}",
+    "visibility": "Public",
+    "description": "parses a string representing an array into an Array.",
+    "summary": "parses a string representing an array into an Array.",
+    "arguments": [
+      {
+        "name": "val",
+        "description": "{String} list string.",
+        "type": "String",
+        "isOptional": false
+      }
+    ],
+    "returnValues": [
+      {
+        "type": "Array",
+        "description": "Returns {Array}"
+      }
+    ],
+    "start": 156,
+    "end": 274,
+    "className": false,
+    "name": "list",
+    "definitionLine": 18
+  }
+]
