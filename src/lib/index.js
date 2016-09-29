@@ -3,6 +3,9 @@ import CommentParser from './comment_parser';
 import ContentParser from './content_parser';
 import ContentInspector from './content_inspector';
 
+/**
+ *  Result Class
+ */
 class Result {
   /**
    *  Private: a typed object to hold the expected results of inspecting and parsing

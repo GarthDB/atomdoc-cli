@@ -1,5 +1,8 @@
 import AtomDoc from 'atomdoc';
 
+/**
+ *  CommentParser Class
+ */
 export default class CommentParser {
   /**
    *  Public: creates a new CommentParser instance

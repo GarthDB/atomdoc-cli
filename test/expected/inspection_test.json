@@ -69,9 +69,30 @@
     "type": "FunctionExpression",
     "name": "newVarFunction",
     "className": false,
-    "start": 632,
-    "end": 674,
-    "definitionLine": 31,
+    "start": 631,
+    "end": 663,
+    "definitionLine": 30,
+    "args": [
+      {
+        "name": "val",
+        "optional": false
+      }
+    ],
+    "returns": [
+      {
+        "start": 650,
+        "end": 661,
+        "name": "val"
+      }
+    ]
+  },
+  {
+    "type": "FunctionExpression",
+    "name": "newVarFunction",
+    "className": false,
+    "start": 681,
+    "end": 723,
+    "definitionLine": 33,
     "args": [
       {
         "name": "param",
@@ -81,12 +102,33 @@
     "returns": []
   },
   {
+    "type": "ArrowFunctionExpression",
+    "name": "newVarFunction",
+    "className": false,
+    "start": 741,
+    "end": 767,
+    "definitionLine": 36,
+    "args": [
+      {
+        "name": "oneMore",
+        "optional": false
+      }
+    ],
+    "returns": [
+      {
+        "start": 758,
+        "end": 765,
+        "name": false
+      }
+    ]
+  },
+  {
     "type": "FunctionExpression",
     "name": "objectFunction",
     "className": false,
-    "start": 889,
-    "end": 1167,
-    "definitionLine": 43,
+    "start": 982,
+    "end": 1260,
+    "definitionLine": 48,
     "args": [
       {
         "name": "node",

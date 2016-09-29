@@ -27,9 +27,14 @@ export default class Poop {
     })
   }
 }
-
-let newVarFunction = function (param) {
+let newVarFunction = function (val) {
+  return val;
+}
+newVarFunction = function (param) {
   console.log(param);
+}
+newVarFunction = (oneMore) => {
+  return;
 }
 
 const _typeHandlers = {

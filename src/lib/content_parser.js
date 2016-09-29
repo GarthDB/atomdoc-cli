@@ -35,12 +35,19 @@ const _typeHandlers = {
    *  * `node` the {Node} to parse.
    */
   ArrowFunctionExpression(comment, node) {
-    comment.className = false;
-    comment.name = false;
-    try {
-      comment.name = node.parent.id.name;
-    } catch (err) { /**/ }
-    comment.definitionLine = node.loc.start.line;
+    if (node.parent.type === 'VariableDeclarator' || node.parent.type === 'ExpressionStatement') {
+      comment.className = false;
+      comment.name = false;
+      try {
+        comment.name = node.parent.id.name;
+      } catch (err) { /**/ }
+      comment.definitionLine = node.loc.start.line;
+    }
+    if (node.parent.type === 'AssignmentExpression') {
+      comment.className = false;
+      comment.name = node.parent.left.name;
+      comment.definitionLine = node.loc.start.line;
+    }
   },
   /**
    *  Private: uses `FunctionDeclaration` {Node}s to find the `name` and `definitionLine`.
@@ -67,7 +74,12 @@ const _typeHandlers = {
     }
     if (node.parent.type === 'VariableDeclarator') {
       comment.className = false;
-      comment.name = node.parent.id.name || false;
+      comment.name = node.parent.id.name;
+      comment.definitionLine = node.loc.start.line;
+    }
+    if (node.parent.type === 'AssignmentExpression') {
+      comment.className = false;
+      comment.name = node.parent.left.name;
       comment.definitionLine = node.loc.start.line;
     }
   },

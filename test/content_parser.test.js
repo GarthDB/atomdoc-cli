@@ -34,18 +34,15 @@ test('should ignore non atomdoc comments', t => {
 });
 
 test('should support non astricks block comment', t => {
-  const expected = JSON.parse(fs.readFileSync('./expected/has_comment.json', 'utf-8'));
+  const expected = JSON.parse(fs.readFileSync('./expected/different_comment.json', 'utf-8'));
   return parse('./fixtures/different_comment.js').then(result => {
-    result[0].end = 132;
     t.deepEqual(expected, result);
   }).catch(t.fail);
 });
 
 test('should support arrow functions', t => {
-  const expected = JSON.parse(fs.readFileSync('./expected/has_comment.json', 'utf-8'));
+  const expected = JSON.parse(fs.readFileSync('./expected/arrow_function.json', 'utf-8'));
   return parse('./fixtures/arrow_function.js').then(result => {
-    result[0].start = 0;
-    result[0].end = 132;
     t.deepEqual(expected, result);
   }).catch(t.fail);
 });

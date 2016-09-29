@@ -22,6 +22,9 @@ function _formatHeader(method, filename) {
   return header;
 }
 
+/**
+ *  Comparison Class
+ */
 class Comparison {
   /**
    *  Public: a class to contain the properties to compare and the method to comare
@@ -110,9 +113,7 @@ function _findAtomdoc(parserResult, definitionLine) {
  *  Public: compares values in the `parserResult` against the `inspectorResult` of
  *  `result` to determine if the documentation is complete.
  *
- *  * `result` {Object}
- *    * `parserResult` {Array} of AtomDoc {Doc} results.
- *    * `inspectorResult` {Array} of {InspectorMethod} results.
+ *  * `result` {Result} of the inspection and parsing.
  *  * `showAll` (optional) {Boolean} if true this will show all results, if false,
  *    it will only show errors. Defaults to true.
  *

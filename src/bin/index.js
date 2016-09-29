@@ -23,6 +23,12 @@ program
 let reporter;
 let pattern = program.args[0];
 if (program.reporter === 'false') {
+  /**
+   *  Private: a basic reporter function that just `console.log`s out a JSON version
+   *  of the parserResult.
+   *
+   * * `result` {Result} of the inspection and parsing.
+   */
   reporter = (result) => {
     console.log(JSON.stringify(result.parserResult, null, 2));
   };

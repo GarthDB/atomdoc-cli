@@ -40,6 +40,12 @@ _commander2.default.version(module.exports.version).description(module.exports.d
 var reporter = void 0;
 var pattern = _commander2.default.args[0];
 if (_commander2.default.reporter === 'false') {
+  /**
+   *  Private: a basic reporter function that just `console.log`s out a JSON version
+   *  of the parserResult.
+   *
+   * * `result` {Result} of the inspection and parsing.
+   */
   reporter = function reporter(result) {
     console.log(JSON.stringify(result.parserResult, null, 2));
   };

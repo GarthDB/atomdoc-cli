@@ -1,3 +1,6 @@
+/**
+ *  InspectorMethod Class
+ */
 class InspectorMethod {
   /**
    *  Private: a typed object to hold the expected results of inspecting the javascript content.
@@ -20,6 +23,9 @@ class InspectorMethod {
 
 const privateReturnProps = new WeakMap();
 
+/**
+ *  ReturnResult Class
+ */
 class ReturnResult {
   /**
    *  Private: a typed object to hold the expected results of the returns contained
@@ -52,6 +58,9 @@ class ReturnResult {
   }
 }
 
+/**
+ *  Param Class
+ */
 class Param {
   /**
    *  Private: a typed object to hold the expected results of the parameters found
@@ -132,8 +141,19 @@ const _typeHandlers = {
    *  * `returnsArr` {Array} of {ReturnResult}.
    */
   ArrowFunctionExpression(node, arr, returnsArr) {
-    if (node.parent.type === 'VariableDeclarator') {
-      const name = node.parent.id.name;
+    if (node.parent.type === 'VariableDeclarator' || node.parent.type === 'ExpressionStatement') {
+      let name = false;
+      try {
+        name = node.parent.id.name;
+      } catch (err) { /* */ }
+      const args = _parseParams(node.params);
+      const returns = _getReturns(node, returnsArr);
+      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
+        node.loc.start.line, args, returns);
+      arr.push(result);
+    }
+    if (node.parent.type === 'AssignmentExpression') {
+      const name = node.parent.left.name;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
       const result = new InspectorMethod(node.type, name, false, node.start, node.end,
@@ -176,6 +196,14 @@ const _typeHandlers = {
     }
     if (node.parent.type === 'VariableDeclarator') {
       const name = node.parent.id.name || false;
+      const args = _parseParams(node.params);
+      const returns = _getReturns(node, returnsArr);
+      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
+        node.loc.start.line, args, returns);
+      arr.push(result);
+    }
+    if (node.parent.type === 'AssignmentExpression') {
+      const name = node.parent.left.name;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
       const result = new InspectorMethod(node.type, name, false, node.start, node.end,
@@ -232,6 +260,9 @@ const _typeHandlers = {
   },
 };
 
+/**
+ *  ContentInspector Class
+ */
 export default class ContentInspector {
   /**
    *  Public: creates an instance of ContentInspector to parse `content`.
