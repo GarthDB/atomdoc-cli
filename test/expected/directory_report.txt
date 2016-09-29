@@ -1,10 +1,10 @@
-./fixtures/directory/has_comment.js list (Public)
+./fixtures/directory/has_comment.js list (Public) line 8
 Examples: Missing Add `## Examples` to public methods 
 
-./fixtures/directory/has_errors.js Poop.constructor (Public)
+./fixtures/directory/has_errors.js Poop.constructor (Public) line 15
 Arg Name: test notTest 
 
-./fixtures/directory/has_errors.js newVarFunction
+./fixtures/directory/has_errors.js newVarFunction line 20
 Function on line 20 is missing documentation.
 
 No missing AtomDocs in ./fixtures/directory/subdir/basic_function.js

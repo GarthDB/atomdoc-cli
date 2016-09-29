@@ -7,6 +7,14 @@ const complete = chalk.green;
 const headerMissing = missing.inverse;
 const headerComplete = complete.inverse;
 
+/**
+ *  Private: creates the header string for the report on each method.
+ *
+ *  * `method` {InspectorMethod} that has the `name` and `className` (optional) properties.
+ *  * `filename` {String} the filename or path for the `method`.
+ *
+ *  Returns {String} to use as the header for method report.
+ */
 function _formatHeader(method, filename) {
   let header = `${filename} `;
   if (method.className) header += chalk.underline.bold(`${method.className}.`);
@@ -15,6 +23,26 @@ function _formatHeader(method, filename) {
 }
 
 class Comparison {
+  /**
+   *  Public: a class to contain the properties to compare and the method to comare
+   *  them. A {Bool} of the comparison results is assigned to the instance property
+   *  `match` and a message is assigned to `message`.
+   *
+   *  * `label` {String} prepends the results of the comparison.
+   *  * `val1` {String} value to be compared against `val2`.
+   *  * `val2` {String} value to be compared against `val2`.
+   *  * `validMessage` {String} message to be displayed if `val1 === val2`.
+   *  * `invalidMessage` (optional) {Bool|String} message to be displayed if `val1 !== val2`.
+   *    If false, it will show both values as the `message`.
+   *
+   *  ## Examples
+   *
+   *  ```js
+   *  const comp = new Comparison('Really?', 'yes', 'no', 'TADA!', 'not a chance.');
+   *  comp.match; // false
+   *  comp.message: // 'Really?: not a chance.'
+   *  ```
+   */
   constructor(label, val1, val2, validMessage, invalidMessage = false) {
     Object.assign(this, {
       label, val1, val2, validMessage, invalidMessage,
@@ -23,6 +51,15 @@ class Comparison {
     this.val2 = val2 || false;
     Object.assign(this, this.compare());
   }
+  /**
+   *  Private: compares the values and generates the report. This is run automatically
+   *  by the constructor and shouldn't need to be called by any outside function unless
+   *  the instance properties are changed.
+   *
+   *  Returns {Object} with params:
+   *    * `match` {Bool} results of the comparison.
+   *    * `message` a styled {String} with a result message of the comparison.
+   */
   compare() {
     const match = Boolean(this.val1 === this.val2);
     const styleFun = (match) ? this.complete : this.missing;
@@ -35,26 +72,70 @@ class Comparison {
     }
     return { match, message };
   }
+  /**
+   *  Private: a wrapper for styling error text.
+   *
+   *  * `message` {String} to style.
+   *
+   *  Returns styled {String}.
+   */
   missing(message) {
     return missing(message);
   }
+  /**
+   *  Private: a wrapper for styling correct text.
+   *
+   *  * `message` {String} to style.
+   *
+   *  Returns styled {String}.
+   */
   complete(message) {
     return complete(message);
   }
 }
 
+/**
+ *  Private: using the `definitionLine` this function finds the matching AtomDoc Document.
+ *
+ *  * `parserResult` {Array} of AtomDoc {Doc} results.
+ *  * `definitionLine` {Int} the line the function is defined.
+ *
+ *  Returns AtomDoc {Doc} that matches the `definitionLine`.
+ */
 function _findAtomdoc(parserResult, definitionLine) {
   return parserResult.find(method => Boolean(method.definitionLine === definitionLine));
 }
 
+/**
+ *  Public: compares values in the `parserResult` against the `inspectorResult` of
+ *  `result` to determine if the documentation is complete.
+ *
+ *  * `result` {Object}
+ *    * `parserResult` {Array} of AtomDoc {Doc} results.
+ *    * `inspectorResult` {Array} of {InspectorMethod} results.
+ *  * `showAll` (optional) {Boolean} if true this will show all results, if false,
+ *    it will only show errors. Defaults to true.
+ *
+ *  ## Examples
+ *
+ *  ```js
+ *  const doc = new AtomDocDocument(content);
+ *  doc.parse().then((result) => {
+ *    basicReport(result, false); // uses `console.log()` to display report.
+ *  });
+ *  ```
+ *
+ *  Returns {Array} of comparison errors.
+ */
 export default function basicReport(result, showAll = true) {
+  const fileReports = [];
   result.inspectorResult.forEach((method) => {
     const headerText = _formatHeader(method, result.filename);
     let headerStyle = headerComplete;
     const atomDocMethod = _findAtomdoc(result.parserResult, method.definitionLine);
     if (!atomDocMethod) {
       headerStyle = headerMissing;
-      console.log(headerStyle(headerText));
+      console.log(headerStyle(`${headerText} line ${method.definitionLine}`));
       console.log(missing(
         `Function on line ${method.definitionLine} is missing documentation.\n`
       ));
@@ -105,10 +186,15 @@ export default function basicReport(result, showAll = true) {
       }
     }
     if (report.length || showAll) {
-      console.log(headerStyle(`${headerText} (${atomDocMethod.visibility})`));
+      console.log(
+        headerStyle(`${headerText} (${atomDocMethod.visibility}) line ${method.definitionLine}`)
+      );
       console.log(`${cliff.stringifyRows(report)}\n`);
-    } else if (!showAll && report.length === 0) {
-      console.log(complete(`No missing AtomDocs in ${result.filename}`));
     }
+    fileReports.push(...report);
   });
+  if (fileReports.length === 0) {
+    console.log(complete(`No missing AtomDocs in ${result.filename}\n`));
+  }
+  return fileReports;
 }

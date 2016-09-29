@@ -21,6 +21,10 @@ export default class Poop {
    */
   constructor(test) {
     this.test = test;
+    const arr = ['one', 'two', 'three'];
+    const newArr = arr.filter(number => {
+      return (number === 'one');
+    })
   }
 }
 

@@ -55,7 +55,7 @@
     "name": "constructor",
     "className": "Poop",
     "start": 439,
-    "end": 484,
+    "end": 607,
     "definitionLine": 22,
     "args": [
       {
@@ -69,9 +69,9 @@
     "type": "FunctionExpression",
     "name": "newVarFunction",
     "className": false,
-    "start": 509,
-    "end": 551,
-    "definitionLine": 27,
+    "start": 632,
+    "end": 674,
+    "definitionLine": 31,
     "args": [
       {
         "name": "param",
@@ -84,9 +84,9 @@
     "type": "FunctionExpression",
     "name": "objectFunction",
     "className": false,
-    "start": 766,
-    "end": 1044,
-    "definitionLine": 39,
+    "start": 889,
+    "end": 1167,
+    "definitionLine": 43,
     "args": [
       {
         "name": "node",

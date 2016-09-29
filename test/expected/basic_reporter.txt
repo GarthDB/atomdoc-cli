@@ -1,14 +1,13 @@
-./fixtures/basic_reporter.js newFunc (Public)
+./fixtures/basic_reporter.js newFunc (Public) line 9
 Arg Optional: Add (optional) to param2                                     
 Examples:     Missing                  Add `## Examples` to public methods 
 
-./fixtures/basic_reporter.js anotherFun
+./fixtures/basic_reporter.js anotherFun line 13
 Function on line 13 is missing documentation.
 
-No missing AtomDocs in ./fixtures/basic_reporter.js
-./fixtures/basic_reporter.js newVarFunction
+./fixtures/basic_reporter.js newVarFunction line 37
 Function on line 37 is missing documentation.
 
-./fixtures/basic_reporter.js objectFunction (Public)
+./fixtures/basic_reporter.js objectFunction (Public) line 49
 Arg Name: node    dumb                                
 Examples: Missing Add `## Examples` to public methods
