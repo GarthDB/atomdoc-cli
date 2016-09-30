@@ -52,7 +52,7 @@ test.cb('should generate correct output', t => {
 test.cb('should write json file', t => {
   nixt()
   .expect(() => {
-    const expected = read('./expected/has_comment.json');
+    const expected = read('./expected/full_report.json');
     const output = read('./expected/tmp/api.json');
     t.is(output, expected);
   })

@@ -1,0 +1,53 @@
+{
+  "parserResult": [
+    {
+      "originalText": "Public: parses a string representing an array into an Array.\n\n* `val` {String} list string.\n\nReturns {Array}",
+      "visibility": "Public",
+      "description": "parses a string representing an array into an Array.",
+      "summary": "parses a string representing an array into an Array.",
+      "arguments": [
+        {
+          "name": "val",
+          "description": "{String} list string.",
+          "type": "String",
+          "isOptional": false
+        }
+      ],
+      "returnValues": [
+        {
+          "type": "Array",
+          "description": "Returns {Array}"
+        }
+      ],
+      "start": 0,
+      "end": 132,
+      "className": false,
+      "name": "list",
+      "definitionLine": 8
+    }
+  ],
+  "inspectorResult": [
+    {
+      "type": "FunctionDeclaration",
+      "name": "list",
+      "className": false,
+      "start": 133,
+      "end": 359,
+      "definitionLine": 8,
+      "args": [
+        {
+          "name": "val",
+          "optional": false
+        }
+      ],
+      "returns": [
+        {
+          "start": 276,
+          "end": 357,
+          "name": false
+        }
+      ]
+    }
+  ],
+  "filename": "./fixtures/has_comment.js"
+}
