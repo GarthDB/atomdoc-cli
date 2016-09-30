@@ -75,7 +75,7 @@ try {
     doc.process().then(function (result) {
       result.filename = filepath;
       if (_commander2.default.outputPath) {
-        _fs2.default.writeFileSync(_commander2.default.outputPath, JSON.stringify(result.parserResult, null, 2), 'utf8');
+        _fs2.default.writeFileSync(_commander2.default.outputPath, JSON.stringify(result, null, 2), 'utf8');
         console.log('File ' + _commander2.default.outputPath + ' written.');
       } else {
         reporter(result, verbose);

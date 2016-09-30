@@ -58,7 +58,7 @@ glob(pattern, {}, (er, files) => {
     doc.process().then(result => {
       result.filename = filepath;
       if (program.outputPath) {
-        fs.writeFileSync(program.outputPath, JSON.stringify(result.parserResult, null, 2), 'utf8');
+        fs.writeFileSync(program.outputPath, JSON.stringify(result, null, 2), 'utf8');
         console.log(`File ${program.outputPath} written.`);
       } else {
         reporter(result, verbose);
