@@ -5,6 +5,7 @@
   "bin": {
     "atomdoc": "./bin/index.js"
   },
+  "main": "./lib/index.js",
   "scripts": {
     "prepublish": "npm run compile",
     "compile": "babel -d ./ ./src/",
