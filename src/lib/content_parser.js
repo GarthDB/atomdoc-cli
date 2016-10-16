@@ -187,7 +187,7 @@ export default class ContentParser {
       handler(this.commentParser.comments[this.commentIndex], _node);
       this.captureNextFunctionName = false;
     }
-    const nextCommentIndex = _getNextCommentIndex(this.commentParser.comments, _node);
+    const nextCommentIndex = _getNextCommentIndex(this.commentParser.comments, node);
     if (nextCommentIndex > this.commentIndex) {
       this.commentIndex = nextCommentIndex;
       this.captureNextFunctionName = true;

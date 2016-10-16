@@ -37,7 +37,6 @@ test('should inspect a file correctly', t => {
 });
 
 test('full inspection test', t => {
-  inspect('./fixtures/inspection_test.js');
   const expected = JSON.parse(fs.readFileSync('./expected/inspection_test.json', 'utf-8'));
   return inspect('./fixtures/inspection_test.js').then(result => {
     t.deepEqual(expected, result);
