@@ -1,0 +1,64 @@
+[
+  {
+    "originalText": "Public: this is a function.\n\n* `param1` {Boolean} first param\n* `param2` (optional) {Boolean} second param\n\nReturns {Boolean}",
+    "visibility": "Public",
+    "description": "this is a function.",
+    "summary": "this is a function.",
+    "arguments": [
+      {
+        "name": "param1",
+        "description": "{Boolean} first param",
+        "type": "Boolean",
+        "isOptional": false
+      },
+      {
+        "name": "param2",
+        "description": "{Boolean} second param",
+        "type": "Boolean",
+        "isOptional": true
+      }
+    ],
+    "returnValues": [
+      {
+        "type": "Boolean",
+        "description": "Returns {Boolean}"
+      }
+    ],
+    "start": 0,
+    "end": 153,
+    "className": false,
+    "name": "two",
+    "definitionLine": 18
+  },
+  {
+    "originalText": "Public: a nested function\n\n* `prop1` {Boolean} first property\n* `prop2` {Boolean} second property\n\nReturns {Boolean}",
+    "visibility": "Public",
+    "description": "a nested function",
+    "summary": "a nested function",
+    "arguments": [
+      {
+        "name": "prop1",
+        "description": "{Boolean} first property",
+        "type": "Boolean",
+        "isOptional": false
+      },
+      {
+        "name": "prop2",
+        "description": "{Boolean} second property",
+        "type": "Boolean",
+        "isOptional": false
+      }
+    ],
+    "returnValues": [
+      {
+        "type": "Boolean",
+        "description": "Returns {Boolean}"
+      }
+    ],
+    "start": 195,
+    "end": 353,
+    "className": false,
+    "name": "two",
+    "definitionLine": 18
+  }
+]
