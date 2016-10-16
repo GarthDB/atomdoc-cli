@@ -1,3 +1,4 @@
+const newLine = true;
 /**
  *  Public: this is a function.
  *
@@ -8,15 +9,15 @@
  */
 function one(param1, param2 = false) {
   /**
-   *  Public: a nested function
+   *  Private: a nested function
    *
    *  * `prop1` {Boolean} first property
    *  * `prop2` {Boolean} second property
    *
    *  Returns {Boolean}
    */
-  function two (prop1, prop2) {
+  function _two (prop1, prop2) {
     return prop1 || prop2;
   }
-  return two(true, false);
+  return _two(true, false);
 }

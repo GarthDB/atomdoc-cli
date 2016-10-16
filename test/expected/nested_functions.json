@@ -24,15 +24,15 @@
         "description": "Returns {Boolean}"
       }
     ],
-    "start": 0,
-    "end": 153,
+    "start": 22,
+    "end": 175,
     "className": false,
-    "name": "two",
-    "definitionLine": 18
+    "name": "one",
+    "definitionLine": 10
   },
   {
-    "originalText": "Public: a nested function\n\n* `prop1` {Boolean} first property\n* `prop2` {Boolean} second property\n\nReturns {Boolean}",
-    "visibility": "Public",
+    "originalText": "Private: a nested function\n\n* `prop1` {Boolean} first property\n* `prop2` {Boolean} second property\n\nReturns {Boolean}",
+    "visibility": "Private",
     "description": "a nested function",
     "summary": "a nested function",
     "arguments": [
@@ -55,10 +55,10 @@
         "description": "Returns {Boolean}"
       }
     ],
-    "start": 195,
-    "end": 353,
+    "start": 217,
+    "end": 376,
     "className": false,
-    "name": "two",
-    "definitionLine": 18
+    "name": "_two",
+    "definitionLine": 19
   }
 ]

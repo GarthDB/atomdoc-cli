@@ -87,3 +87,10 @@ test('should support object property functions', t => {
     t.deepEqual(expected, result);
   }).catch(t.fail);
 });
+
+test('correctly handle nested functions', t => {
+  const expected = JSON.parse(fs.readFileSync('./expected/nested_functions.json', 'utf-8'));
+  return parse('./fixtures/nested_functions.js').then(result => {
+    t.deepEqual(expected, result);
+  }).catch(t.fail);
+});
