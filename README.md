@@ -4,6 +4,9 @@
 
 ---
 
+![Console Screenshot](http://garthdb.com/atomdoc-cli/img/console-screenshot.png)
+*An example of the command line tool reporting an issue and a verbose output. The source of the fixture is [here](https://github.com/GarthDB/atomdoc-cli/blob/00cdb06a5e9420d28d1adac1eed4ae7198c2e47b/test/fixtures/nested_functions.js).*
+
 A JS lib and command line tool to check for missing [AtomDoc](https://github.com/atom/atomdoc) information in a javascript project.
 
 It inspects js code for functions and methods looking for things like parameters and return statements then compares that information against the AtomDoc comments. It highlights potentially missing information and can be used as part of build validation (like linting or automated tests) in a continuous integration setup like Travis CI.
