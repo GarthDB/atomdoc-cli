@@ -79,7 +79,7 @@
     "babel-register": "^6.14.0",
     "codecov": "^1.0.1",
     "cz-customizable": "^4.0.0",
-    "eslint": "^3.4.0",
+    "eslint": "^3.15.0",
     "eslint-config-garthdb": "0.1.0",
     "nixt": "^0.5.0",
     "nyc": "^8.1.0",
