@@ -37,7 +37,6 @@ test('should inspect a file correctly', t => {
 });
 
 test('full inspection test', t => {
-  inspect('./test/fixtures/inspection_test.js');
   const expected = JSON.parse(fs.readFileSync('./test/expected/inspection_test.json', 'utf-8'));
   return inspect('./test/fixtures/inspection_test.js').then(result => {
     t.notDeepEqual(expected, result);
