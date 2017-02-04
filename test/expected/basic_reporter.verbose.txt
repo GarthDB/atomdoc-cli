@@ -1,4 +1,4 @@
-./fixtures/basic_reporter.js newFunc (Public) line 9
+./test/fixtures/basic_reporter.js newFunc (Public) line 9
 Name:         newFunc                                                      
 Class:        false                                                        
 Arg Count:    2                                                            
@@ -8,10 +8,10 @@ Arg Optional: Add (optional) to param2
 Return:       true                                                         
 Examples:     Missing                  Add `## Examples` to public methods 
 
-./fixtures/basic_reporter.js anotherFun line 13
+./test/fixtures/basic_reporter.js anotherFun line 13
 Function on line 13 is missing documentation.
 
-./fixtures/basic_reporter.js Poop.constructor (Public) line 32
+./test/fixtures/basic_reporter.js Poop.constructor (Public) line 32
 Name:      constructor  
 Class:     Poop         
 Arg Count: 1            
@@ -19,10 +19,10 @@ Arg Name:  test
 Return:    false        
 Examples:  1            
 
-./fixtures/basic_reporter.js newVarFunction line 37
+./test/fixtures/basic_reporter.js newVarFunction line 37
 Function on line 37 is missing documentation.
 
-./fixtures/basic_reporter.js objectFunction (Public) line 49
+./test/fixtures/basic_reporter.js objectFunction (Public) line 49
 Name:      objectFunction                                     
 Class:     false                                              
 Arg Count: 3                                                  

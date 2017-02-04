@@ -11,15 +11,15 @@ function read(filepath) {
 
 test.before(() => {
   try {
-    fs.mkdirSync('./expected/tmp/');
+    fs.mkdirSync('./test/expected/tmp/');
   } catch (e) {
     //
   }
 });
 test.after.always('cleanup', () => {
   try {
-    fs.unlinkSync('./expected/tmp/api.json');
-    fs.rmdirSync('./expected/tmp/');
+    fs.unlinkSync('./test/expected/tmp/api.json');
+    fs.rmdirSync('./test/expected/tmp/');
   } catch (e) {
     //
   }
@@ -43,20 +43,20 @@ test.cb('should display version', t => {
 test.cb('should generate correct output', t => {
   nixt()
   .expect((result) => {
-    const expected = read('./expected/basic_function.json');
+    const expected = read('./test/expected/basic_function.json');
     t.is(result.stdout.trim(), expected);
   })
-  .run('atomdoc --reporter false ./fixtures/basic_function.js')
+  .run('atomdoc --reporter false ./test/fixtures/basic_function.js')
   .end(t.end);
 });
 test.cb('should write json file', t => {
   nixt()
   .expect(() => {
-    const expected = read('./expected/full_report.json');
-    const output = read('./expected/tmp/api.json');
+    const expected = read('./test/expected/full_report.json');
+    const output = read('./test/expected/tmp/api.json');
     t.is(output, expected);
   })
-  .run('atomdoc -o ./expected/tmp/api.json ./fixtures/has_comment.js')
+  .run('atomdoc -o ./test/expected/tmp/api.json ./test/fixtures/has_comment.js')
   .end(t.end);
 });
 test.cb('should error out if file doesn\'t exist', t => {
@@ -71,9 +71,9 @@ test.cb('should error out if file doesn\'t exist', t => {
 test.cb('should use a custom reporter', t => {
   nixt()
   .expect((result) => {
-    const expected = `${read('./expected/basic_function.json').trim()}\nfrom console reporter`;
+    const expected = `${read('./test/expected/basic_function.json').trim()}\nfrom console reporter`;
     t.is(result.stdout.trim(), expected);
   })
-  .run('atomdoc --reporter="./fixtures/console_reporter.js" ./fixtures/basic_function.js')
+  .run('atomdoc --reporter="./test/fixtures/console_reporter.js" ./test/fixtures/basic_function.js')
   .end(t.end);
 });
