@@ -49,5 +49,5 @@
       ]
     }
   ],
-  "filename": "./fixtures/has_comment.js"
+  "filename": "./test/fixtures/has_comment.js"
 }

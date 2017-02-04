@@ -41,7 +41,7 @@ export default class CommentParser {
    */
   _isAtomDocComment(block, text) {
     if (!block) return false;
-    return Boolean(text.match(/^[\*\s]*(Private:|Public:|Internal:)/));
+    return Boolean(text.match(/^[*\s]*(Private:|Public:|Internal:)/));
   }
   /**
    *  Private: adjusts contents of block comments so the base indent is 0.
