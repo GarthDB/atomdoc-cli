@@ -63,3 +63,13 @@ test.cb('should run atomdoc on js files in directory', t => {
   .run('atomdoc ./test/fixtures/directory')
   .end(t.end);
 });
+
+test.cb('should compare nested parameters', t => {
+  nixt()
+  .expect((result) => {
+    const expected = read('./test/expected/directory_report.txt');
+    t.is(result.stdout.trim(), expected);
+  })
+  .run('atomdoc ./test/fixtures/param-context-matching.js')
+  .end(t.end);
+});

@@ -69,10 +69,12 @@ class Param {
    *  * `name` {String} parameter identifier.
    *  * `optional` (optional) {Boolean} if the parameter has a default value this
    *    is true, otherwise false.
+   *  * `children` (optional) {Array} of children {Param}s.
    */
-  constructor(name, optional = false) {
+  constructor(name, optional = false, children = false) {
     this.name = name;
     this.optional = optional;
+    if (children !== false) this.children = children;
   }
 }
 
@@ -108,6 +110,11 @@ function _parseParams(params) {
       case 'AssignmentPattern':
         result = new Param(param.left.name, true);
         break;
+      case 'ObjectPattern': {
+        const objParams = param.properties.map((objParam) => objParam.value);
+        result = new Param('arguments', false, _parseParams(objParams));
+        break;
+      }
       default:
     }
     return result;

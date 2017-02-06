@@ -153,6 +153,7 @@ export default function basicReport(result, showAll = true) {
     ];
     method.args.forEach((arg, index) => {
       const atomArg = atomDocMethod.arguments[index] || false;
+      console.log(atomDocMethod.arguments);
       validationArr.push(
         new Comparison('Arg Name', arg.name, atomArg.name, arg.name)
       );

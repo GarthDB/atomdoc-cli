@@ -1,0 +1,27 @@
+[
+  {
+    "type": "FunctionDeclaration",
+    "name": "h",
+    "className": false,
+    "start": 141,
+    "end": 199,
+    "definitionLine": 8,
+    "args": [
+      {
+        "name": "arguments",
+        "optional": false,
+        "children": [
+          {
+            "name": "str",
+            "optional": false
+          },
+          {
+            "name": "val",
+            "optional": true
+          }
+        ]
+      }
+    ],
+    "returns": []
+  }
+]
