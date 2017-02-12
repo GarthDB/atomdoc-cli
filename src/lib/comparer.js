@@ -1,55 +1,85 @@
-class ReportError {
-  constructor(method, message) {
-    this.method = method;
-    this.line = line;
-    this.message = message;
+import Doc from 'atomdoc/lib/doc';
+
+class Comparison {
+  constructor (label, atomDocValue, inspectorValue){
+    Object.assign(this, {label, atomDocValue, inspectorValue});
+  }
+  get valid() {
+    return Boolean(this.atomDocValue === this.inspectorValue);
   }
 }
 
-class ReportSuccess {
+export class MethodReport {
+  constructor(atomDocMethod, inspectorMethod) {
+    this.atomDocMethod = atomDocMethod;
+    this.inspectorMethod = inspectorMethod;
+    this.paramReports = [];
+    // this.docsExist = this.validateDocsExist();
+    // this.nameMatch = this.validateNameMatch();
+    // this.classNameMatch = this.validateClassNameMatch();
+  }
+  addParamReport(paramReport) {
+    this.paramReports.push(paramReport);
+  }
+  /**
+   *  Public: checks if AtomDoc exists for a method.
+   *
+   *  Also verifies that atomDoc is an instance of {Doc}
+   *
+   *  Returns {Boolean}
+   *
+   *  ## Examples
+   *
+   *  ```js
+   *  const report = new MethodReport(atomDocMethod, inspectorMethod);
+   *  report.validateDocsExist(); //returns true if atomDocMethod exists;
+   *  ```
+   */
+  get validDocs () {
+    if (!this.atomDocMethod) return false;
+    return Boolean(this.atomDocMethod instanceof Doc);
+  }
+  /**
+   *  Public: checks if the name of the function matches the atomdoc method name.
+   *  Returns {Boolean}
+   *
+   *  ```js
+   *  const report = new MethodReport(atomDocMethod, inspectorMethod);
+   *  report.validateNameMatch(); //returns true if atomDocMethod exists;
+   *  ```
+   */
+  get nameMatch () {
+    return new Comparison('name', this.atomDocMethod.name, this.inspectorMethod.name);
+  }
+  get validExamples () {
+    if(this.atomDocMethod.visibility === 'Public' && this.atomDocMethod.examples) console.log('present');
+    console.log(this.atomDocMethod.visibility);
+    console.log(this.atomDocMethod.examples);
+  }
+  validateClassNameMatch() {
 
+  }
+  validateParamReports() {
+
+  }
 }
-
-class Report {
+class ParamReport {
   constructor() {
-    this.reports = [];
-    this.valid = true;
+    this.nameMatch = true;
+    this.optionalMatch = true;
+    this.childrenReports = [];
   }
-  addReport(report) {
-    if(report.constructor.name === ReportError.name) this.valid = false;
-    this.reports.push(report);
+  addChildReport(paramReport) {
+    this.paramReports.push(paramReport);
   }
 }
-
-_compare(label, val1, val2) {
-  let report;
-  const match = Boolean(this.val1 === this.val2);
-  if (!match) {
-    report = new ReportError ()
-  } else if (!match) {
-    message = [`${this.label}:`, headerComplete(this.val1), headerMissing(this.val2)];
-  }
-  return { match, message };
-}
-
 export default class Comparer {
-  constructor(result){
+  constructor(result) {
     this.result = result;
-  }
-  analyze(result = false) {
-    if(!result && !this.result) throw Error('Provide a Result object to compare');
-    if(result !== false) this.result = result;
-    const report = new Report();
-    result.inspectorResult.forEach((method) => {
-      const atomDocMethod = _findAtomdoc(result.parserResult, method.definitionLine);
-      if (!atomDocMethod) {
-        report.addReport(new ReportError(method,
-          `Function on line ${method.definitionLine} is missing documentation.`
-        ));
-        return;
-      }
-      if (!{}.hasOwnProperty.call(atomDocMethod, 'arguments')) atomDocMethod.arguments = [];
-      if (!{}.hasOwnProperty.call(atomDocMethod, 'returnValues')) atomDocMethod.returnValues = [];
-    }
+    this.reports = [];
+    this.result.inspectorResult.forEach((method) => {
+      const atomDocMethod = this.result.findAtomdoc(method.definitionLine);
+      this.reports.push(new MethodReport(atomDocMethod, method));
+    });
   }
 }
