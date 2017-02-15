@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import glob from 'glob';
 import AtomDocDocument from '../lib/';
+import Comparison from '../lib/comparison';
 
 pkginfo(module, 'version', 'description');
 
@@ -27,10 +28,10 @@ if (program.reporter === 'false') {
    *  Private: a basic reporter function that just `console.log`s out a JSON version
    *  of the parserResult.
    *
-   * * `result` {Result} of the inspection and parsing.
+   * * `comparer` {Comparison} with the full comparison result.
    */
-  reporter = (result) => {
-    console.log(JSON.stringify(result.parserResult, null, 2));
+  reporter = (comparer) => {
+    console.log(JSON.stringify(comparer.valid, null, 2));
   };
 } else if (program.reporter) {
   const basedir = path.normalize(process.cwd());
@@ -61,7 +62,7 @@ glob(pattern, {}, (er, files) => {
         fs.writeFileSync(program.outputPath, JSON.stringify(result, null, 2), 'utf8');
         console.log(`File ${program.outputPath} written.`);
       } else {
-        reporter(result, verbose);
+        reporter(new Comparison(result), verbose);
       }
     });
   });

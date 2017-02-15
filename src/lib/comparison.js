@@ -1,6 +1,6 @@
 import Doc from 'atomdoc/lib/doc';
 
-export class Comparison {
+export class BasicComparison {
   constructor(label, atomDocValue, inspectorValue) {
     Object.assign(this, { label, atomDocValue, inspectorValue });
   }
@@ -15,10 +15,10 @@ class ParamReport {
     this.childrenReports = [];
   }
   get nameMatch() {
-    return new Comparison('name', this.atomDocArg.name, this.inspectorArg.name);
+    return new BasicComparison('name', this.atomDocArg.name, this.inspectorArg.name);
   }
   get optionalMatch() {
-    return new Comparison('optional', this.atomDocArg.isOptional, this.inspectorArg.optional);
+    return new BasicComparison('optional', this.atomDocArg.isOptional, this.inspectorArg.optional);
   }
   get valid() {
     const tests = [
@@ -42,6 +42,15 @@ function _generateParamReports(atomDocArgs, inspectorArgs) {
     return paramReport;
   });
   return paramReports;
+}
+
+function _countArgs(parent, childLabel = 'args', count = 0) {
+  if(!({}).hasOwnProperty.call(parent, childLabel)) return count;
+  parent[childLabel].forEach((arg) => {
+    count++;
+    count += _countArgs(arg, 'children');
+  });
+  return count;
 }
 
 export class MethodReport {
@@ -80,7 +89,7 @@ export class MethodReport {
    *  ```
    */
   get nameMatch() {
-    return new Comparison('name', this.atomDocMethod.name, this.inspectorMethod.name);
+    return new BasicComparison('name', this.atomDocMethod.name, this.inspectorMethod.name);
   }
   get visibility() {
     return this.atomDocMethod.visibility;
@@ -89,7 +98,7 @@ export class MethodReport {
     return Boolean(this.atomDocMethod.examples);
   }
   get classNameMatch() {
-    return new Comparison('className',
+    return new BasicComparison('className',
       this.atomDocMethod.className, this.inspectorMethod.className);
   }
   get validExamples() {
@@ -98,11 +107,16 @@ export class MethodReport {
     }
     return true;
   }
+  get argCountMatch() {
+    const inspectorArgCount = _countArgs(this.inspectorMethod);
+    const atomDocArgCount = _countArgs(this.atomDocMethod, 'arguments');
+    return new BasicComparison('ArgCount', atomDocArgCount, inspectorArgCount);
+  }
   get valid() {
     const tests = [
       this.validDocs,
-      this.nameMatch,
-      this.classNameMatch,
+      this.nameMatch.valid,
+      this.classNameMatch.valid,
       this.paramReports.every((paramReport) => paramReport.valid),
       this.validExamples,
     ];
@@ -110,7 +124,7 @@ export class MethodReport {
   }
 }
 
-export default class Comparer {
+export default class Comparison {
   constructor(result) {
     this.result = result;
     this.reports = [];

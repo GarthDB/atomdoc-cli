@@ -48,3 +48,18 @@ function g ({ str, val = 12 }) {
 function i ({ str, val = 12 }) {
   console.log(str, val)
 }
+/**
+ *  Public: simple sample funtion.
+ *
+ *  * `arguments` {Object}
+ *    * `str` {String} the name
+ *
+ *  ## Examples
+ *
+ *  ```js
+ *  j({ str: "bar", val: 42 });
+ *  ```
+ */
+function j ({ str, val = 12 }) {
+  console.log(str, val)
+}
