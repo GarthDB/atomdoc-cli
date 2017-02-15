@@ -1,25 +1,56 @@
 import Doc from 'atomdoc/lib/doc';
 
-class Comparison {
-  constructor (label, atomDocValue, inspectorValue){
-    Object.assign(this, {label, atomDocValue, inspectorValue});
+export class Comparison {
+  constructor(label, atomDocValue, inspectorValue) {
+    Object.assign(this, { label, atomDocValue, inspectorValue });
   }
   get valid() {
     return Boolean(this.atomDocValue === this.inspectorValue);
   }
 }
 
+class ParamReport {
+  constructor(atomDocArg, inspectorArg) {
+    Object.assign(this, { atomDocArg, inspectorArg });
+    this.childrenReports = [];
+  }
+  get nameMatch() {
+    return new Comparison('name', this.atomDocArg.name, this.inspectorArg.name);
+  }
+  get optionalMatch() {
+    return new Comparison('optional', this.atomDocArg.isOptional, this.inspectorArg.optional);
+  }
+  get valid() {
+    const tests = [
+      this.nameMatch.valid,
+      this.optionalMatch.valid,
+      this.childrenReports.every((childReport) => childReport.valid),
+    ];
+    return tests.every((test) => test);
+  }
+}
+
+function _generateParamReports(atomDocArgs, inspectorArgs) {
+  const paramReports = atomDocArgs.map((atomDocArg, index) => {
+    const inspectorArg = inspectorArgs[index];
+    const paramReport = new ParamReport(atomDocArg, inspectorArg);
+    if (atomDocArg.children) {
+      paramReport.childrenReports = _generateParamReports(
+        atomDocArg.children, inspectorArg.children
+      );
+    }
+    return paramReport;
+  });
+  return paramReports;
+}
+
 export class MethodReport {
   constructor(atomDocMethod, inspectorMethod) {
     this.atomDocMethod = atomDocMethod;
     this.inspectorMethod = inspectorMethod;
-    this.paramReports = [];
-    // this.docsExist = this.validateDocsExist();
-    // this.nameMatch = this.validateNameMatch();
-    // this.classNameMatch = this.validateClassNameMatch();
-  }
-  addParamReport(paramReport) {
-    this.paramReports.push(paramReport);
+    if (this.validDocs) {
+      this.paramReports = _generateParamReports(atomDocMethod.arguments, inspectorMethod.args);
+    }
   }
   /**
    *  Public: checks if AtomDoc exists for a method.
@@ -35,7 +66,7 @@ export class MethodReport {
    *  report.validateDocsExist(); //returns true if atomDocMethod exists;
    *  ```
    */
-  get validDocs () {
+  get validDocs() {
     if (!this.atomDocMethod) return false;
     return Boolean(this.atomDocMethod instanceof Doc);
   }
@@ -48,38 +79,47 @@ export class MethodReport {
    *  report.validateNameMatch(); //returns true if atomDocMethod exists;
    *  ```
    */
-  get nameMatch () {
+  get nameMatch() {
     return new Comparison('name', this.atomDocMethod.name, this.inspectorMethod.name);
   }
-  get validExamples () {
-    if(this.atomDocMethod.visibility === 'Public' && this.atomDocMethod.examples) console.log('present');
-    console.log(this.atomDocMethod.visibility);
-    console.log(this.atomDocMethod.examples);
+  get visibility() {
+    return this.atomDocMethod.visibility;
   }
-  validateClassNameMatch() {
-
+  get examplesExist() {
+    return Boolean(this.atomDocMethod.examples);
   }
-  validateParamReports() {
-
+  get classNameMatch() {
+    return new Comparison('className',
+      this.atomDocMethod.className, this.inspectorMethod.className);
+  }
+  get validExamples() {
+    if (this.visibility === 'Public') {
+      return Boolean(this.examplesExist);
+    }
+    return true;
+  }
+  get valid() {
+    const tests = [
+      this.validDocs,
+      this.nameMatch,
+      this.classNameMatch,
+      this.paramReports.every((paramReport) => paramReport.valid),
+      this.validExamples,
+    ];
+    return tests.every((test) => test);
   }
 }
-class ParamReport {
-  constructor() {
-    this.nameMatch = true;
-    this.optionalMatch = true;
-    this.childrenReports = [];
-  }
-  addChildReport(paramReport) {
-    this.paramReports.push(paramReport);
-  }
-}
+
 export default class Comparer {
   constructor(result) {
     this.result = result;
     this.reports = [];
     this.result.inspectorResult.forEach((method) => {
-      const atomDocMethod = this.result.findAtomdoc(method.definitionLine);
+      const atomDocMethod = this.result.findAtomDoc(method.definitionLine);
       this.reports.push(new MethodReport(atomDocMethod, method));
     });
+  }
+  get valid() {
+    return this.reports.every((report) => report.valid);
   }
 }

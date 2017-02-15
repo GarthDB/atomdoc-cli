@@ -26,27 +26,3 @@ function _nodeTest(node) {
   ];
   return functionTypes.includes(nodeType);
 }
-
-/**
- *  Public: Checks `node.type` to see if it is a function node.
- *
- *  * `node` {Object} Spidermonkey AST node
- *
- *  ## Examples
- *
- *  ```js
- *  const valid = nodeTest(node);
- *  ```
- *
- *  Returns {Boolean} if it is a function node.
- */
-function nodeTest(node) {
-  const nodeType = _getNodeType(node);
-  const functionTypes = [
-    'FunctionDeclaration',
-    'ArrowFunctionExpression',
-    'VariableDeclarator',
-    'MethodDefinition',
-  ];
-  return functionTypes.includes(nodeType);
-}

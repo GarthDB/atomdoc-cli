@@ -100,9 +100,8 @@ test('correctly handle nested functions', t => {
 });
 
 test('correctly object parameters with children', t => {
-  const expected = JSON.parse(fs.readFileSync('./test/expected/nested_functions.json', 'utf-8'));
+  const expected = JSON.parse(fs.readFileSync('./test/expected/param-context-matching.json', 'utf-8'));
   return parse('./test/fixtures/param-context-matching.js').then(result => {
-    console.log(result);
     t.deepEqual(expected, _stripTypes(result));
   }).catch(t.fail);
 });
