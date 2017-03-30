@@ -61,7 +61,7 @@
     }
   },
   "dependencies": {
-    "acorn": "^4.0.8",
+    "acorn": "^5.0.2",
     "atomdoc": "^1.0.4",
     "chalk": "^1.1.3",
     "cliff": "^0.1.10",
