@@ -74,7 +74,7 @@
     "tello": "^1.0.6"
   },
   "devDependencies": {
-    "ava": "^0.18.1",
+    "ava": "^0.19.1",
     "babel-cli": "^6.22.2",
     "babel-core": "^6.22.1",
     "babel-plugin-add-module-exports": "^0.2.1",
