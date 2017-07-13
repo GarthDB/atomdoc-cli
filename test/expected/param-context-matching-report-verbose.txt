@@ -1,0 +1,32 @@
+./test/fixtures/param-context-matching.js h (Public) line 14
+Name:          h                     h
+Class:         false                 false
+Arg:           arguments is complete
+Nested Params:
+Arg:           str is complete
+Arg:           val is complete
+Examples:      Exist                 count(1)
+
+./test/fixtures/param-context-matching.js g (Public) line 31
+Name:          g               g
+Class:         false           false
+Nested Params:
+Arg Name:      str             name
+Arg:           val is complete
+Examples:      Exist           count(1)
+
+./test/fixtures/param-context-matching.js i (Public) line 48
+Name:          i               i
+Class:         false           false
+Nested Params:
+Arg:           str is complete
+Arg Optional:  Missing         Add (optional) to val
+Examples:      Exist           count(1)
+
+./test/fixtures/param-context-matching.js j (Public) line 63
+Name:          j                     j
+Class:         false                 false
+Arg:           arguments is complete
+Nested Params:
+Arg:           str is complete
+Examples:      Exist                 count(1)

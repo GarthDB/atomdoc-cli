@@ -55,6 +55,16 @@ test('should report visibility when private', t => {
   });
 });
 
+test('should report valid examples when private', t => {
+  const content = fs.readFileSync('./test/fixtures/multiple_functions.js', 'utf-8');
+  const doc = new AtomDocDocument(content);
+  return doc.process().then(result => {
+    const atomDoc = result.findAtomDoc(result.inspectorResult[0].definitionLine);
+    const methodReport = new MethodReport(atomDoc, result.inspectorResult[0]);
+    t.is(methodReport.validExamples, true);
+  });
+});
+
 test('should report visibility when public', t => {
   const content = fs.readFileSync('./test/fixtures/basic_reporter.js', 'utf-8');
   const doc = new AtomDocDocument(content);

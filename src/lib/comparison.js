@@ -28,6 +28,9 @@ class ParamReport {
     ];
     return tests.every((test) => test);
   }
+  get hasChildren() {
+    return (this.childrenReports.length > 0);
+  }
 }
 
 function _generateParamReports(atomDocArgs, inspectorArgs) {
@@ -45,12 +48,13 @@ function _generateParamReports(atomDocArgs, inspectorArgs) {
 }
 
 function _countArgs(parent, childLabel = 'args', count = 0) {
-  if(!({}).hasOwnProperty.call(parent, childLabel)) return count;
+  if (!({}).hasOwnProperty.call(parent, childLabel)) return count;
+  let resultCount = count;
   parent[childLabel].forEach((arg) => {
-    count++;
-    count += _countArgs(arg, 'children');
+    resultCount++;
+    resultCount += _countArgs(arg, 'children');
   });
-  return count;
+  return resultCount;
 }
 
 export class MethodReport {

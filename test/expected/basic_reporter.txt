@@ -1,6 +1,6 @@
 ./test/fixtures/basic_reporter.js newFunc (Public) line 9
-Arg Optional: Add (optional) to param2                                     
-Examples:     Missing                  Add `## Examples` to public methods 
+Arg Optional: Missing Add (optional) to param2
+Examples:     Missing Add `## Examples` to public methods
 
 ./test/fixtures/basic_reporter.js anotherFun line 13
 Function on line 13 is missing documentation.
@@ -9,5 +9,5 @@ Function on line 13 is missing documentation.
 Function on line 37 is missing documentation.
 
 ./test/fixtures/basic_reporter.js objectFunction (Public) line 49
-Arg Name: node    dumb                                
+Arg Name: node    dumb
 Examples: Missing Add `## Examples` to public methods

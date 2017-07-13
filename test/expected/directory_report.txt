@@ -1,10 +1,71 @@
-./test/fixtures/directory/has_comment.js list (Public) line 8
-Examples: Missing Add `## Examples` to public methods 
+import cliff from 'cliff';
+import chalk from 'chalk';
 
-./test/fixtures/directory/has_errors.js Poop.constructor (Public) line 15
-Arg Name: test notTest 
+const missing = chalk.red;
+const complete = chalk.green;
+const headerMissing = missing.inverse;
+const headerComplete = complete.inverse;
 
-./test/fixtures/directory/has_errors.js newVarFunction line 20
-Function on line 20 is missing documentation.
+/**
+ *  Private: [_formatComparison description]
+ *
+ *  * `basicComparison` {BasicComparison}
+ *
+ *  Returns {String}
+ */
+function _formatComparison(basicComparison, verbose = false) {
+  const style = (basicComparison.valid) ? complete : missing;
+  const result = cliff.stringifyObjectRows(
+    [basicComparison],
+    ['label', 'inspectorValue', 'atomDocValue']
+  );
+  return (!basicComparison.valid || verbose) ? `${style(result)}\n` : '';
+}
 
-No missing AtomDocs in ./test/fixtures/directory/subdir/basic_function.js
+function _formatParam(paramReport, verbose = false) {
+  paramReport.childrenReports.forEach((childReport) => {
+    _formatParam(childReport, verbose);
+  });
+  console.log(paramReport);
+}
+
+export default function BasicResporter(comparison, filename = false, verbose = false) {
+  const reports = comparison.reports.map((methodReport) => {
+    const inspectorMethod = methodReport.inspectorMethod;
+    let headerStyle;
+    let headerText = '';
+    let report = '';
+    if (filename) headerText += `${filename} `;
+    if (inspectorMethod.className) headerText += `${inspectorMethod.className}.`;
+    headerText += inspectorMethod.name;
+    // Missing valid docs
+    if (!methodReport.validDocs) {
+      headerStyle = headerMissing;
+      headerText += ` line ${inspectorMethod.definitionLine}\n`;
+      report += headerStyle(headerText);
+      report +=
+        missing(`Function on line ${inspectorMethod.definitionLine} is missing documentation.\n`);
+      return report;
+    }
+    // Header
+    headerStyle = (methodReport.valid) ? headerComplete : headerMissing;
+    headerText += ` (${methodReport.visibility})`;
+    headerText += ` line ${inspectorMethod.definitionLine}\n`;
+    report += headerStyle(headerText);
+    report += _formatComparison(methodReport.nameMatch, verbose);
+    report += _formatComparison(methodReport.classNameMatch, verbose);
+    methodReport.paramReports.forEach((paramReport) => {
+      report += _formatParam(paramReport, verbose);
+    });
+
+    // new Comparison('Name', method.name, atomDocMethod.name, method.name),
+    // new Comparison('Class', method.className, atomDocMethod.className, method.className),
+    // new Comparison('Arg Count', method.args.length,
+    //   atomDocMethod.arguments.length, method.args.length),
+
+    return report;
+  });
+  const report = reports.join('\n');
+  console.log(report);
+  return report;
+}

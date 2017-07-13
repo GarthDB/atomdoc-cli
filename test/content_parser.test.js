@@ -73,7 +73,7 @@ test('should support anon arrow functions', t => {
   return parse('./test/fixtures/anon_arrow_function.js').then(result => {
     result[0].start = 0;
     result[0].end = 132;
-    t.deepEqual(expected, result);
+    t.deepEqual(expected, _stripTypes(result));
   }).catch(t.fail);
 });
 
@@ -100,7 +100,9 @@ test('correctly handle nested functions', t => {
 });
 
 test('correctly object parameters with children', t => {
-  const expected = JSON.parse(fs.readFileSync('./test/expected/param-context-matching.json', 'utf-8'));
+  const expected = JSON.parse(fs.readFileSync(
+    './test/expected/param-context-matching-inspection.json', 'utf-8'
+  ));
   return parse('./test/fixtures/param-context-matching.js').then(result => {
     t.deepEqual(expected, _stripTypes(result));
   }).catch(t.fail);

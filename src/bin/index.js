@@ -28,11 +28,9 @@ if (program.reporter === 'false') {
    *  Private: a basic reporter function that just `console.log`s out a JSON version
    *  of the parserResult.
    *
-   * * `comparer` {Comparison} with the full comparison result.
+   * * `comparison` {Comparison} with the full comparison result.
    */
-  reporter = (comparer) => {
-    console.log(JSON.stringify(comparer.valid, null, 2));
-  };
+  reporter = (comparison) => JSON.stringify(comparison.result.parserResult, null, 2);
 } else if (program.reporter) {
   const basedir = path.normalize(process.cwd());
   const reporterPath = resolve.sync(program.reporter, { basedir });
@@ -45,7 +43,6 @@ try {
   const stats = fs.lstatSync(pattern);
   if (stats.isDirectory()) pattern = `${pattern}/**/*.js`;
 } catch (err) { /* */ }
-
 glob(pattern, {}, (er, files) => {
   if (files.length === 0) {
     console.error(new Error(`No files match '${pattern}'`));
@@ -62,7 +59,12 @@ glob(pattern, {}, (er, files) => {
         fs.writeFileSync(program.outputPath, JSON.stringify(result, null, 2), 'utf8');
         console.log(`File ${program.outputPath} written.`);
       } else {
-        reporter(new Comparison(result), verbose);
+        const comparisonResult = new Comparison(result);
+        const report = reporter(comparisonResult, filepath, verbose);
+        console.log(report);
+        if (!comparisonResult.valid) {
+          process.exitCode = 1;
+        }
       }
     });
   });
