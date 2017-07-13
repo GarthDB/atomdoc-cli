@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import test from 'ava';
 import fs from 'fs';
-import chalk from 'chalk';
 import basicReporter from '../src/lib/basic_reporter';
 import AtomDocDocument from '../src/lib/';
 import Comparison from '../src/lib/comparison';
