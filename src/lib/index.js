@@ -18,6 +18,19 @@ class Result {
     this.parserResult = result[0];
     this.inspectorResult = result[1];
   }
+  // TODO make documentation public with example
+  /**
+   *  Private: using the `definitionLine` this function finds the matching AtomDoc Document.
+   *
+   *  * `definitionLine` {Int} the line the function is defined.
+   *
+   *  Returns AtomDoc {Doc} that matches the `definitionLine`.
+   */
+  findAtomDoc(definitionLine) {
+    return this.parserResult.find(method => Boolean(method.definitionLine === definitionLine));
+  }
+  // TODO make a better modular test for this method.
+  // TODO make documentation public with example
 }
 
 /**

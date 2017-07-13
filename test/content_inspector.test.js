@@ -3,6 +3,10 @@ import fs from 'fs';
 import falafel from 'falafel';
 import ContentInspector from '../src/lib/content_inspector';
 
+function _stripTypes(result) {
+  return JSON.parse(JSON.stringify(result, null, 2));
+}
+
 function inspect(filepath) {
   const content = fs.readFileSync(filepath, 'utf-8');
   const contentInspector = new ContentInspector(content);
@@ -32,13 +36,22 @@ test('should inspect a file correctly', t => {
     }],
   }];
   return inspect('./test/fixtures/basic_function.js').then(result => {
-    t.notDeepEqual(expected, result);
+    t.deepEqual(expected, _stripTypes(result));
   }).catch(t.fail);
 });
 
 test('full inspection test', t => {
   const expected = JSON.parse(fs.readFileSync('./test/expected/inspection_test.json', 'utf-8'));
   return inspect('./test/fixtures/inspection_test.js').then(result => {
-    t.notDeepEqual(expected, result);
+    t.deepEqual(expected, _stripTypes(result));
+  }).catch(t.fail);
+});
+
+test('should handle parameter context matching in es2015', t => {
+  const expected = JSON.parse(
+    fs.readFileSync('./test/expected/param-context-matching.json', 'utf-8')
+  );
+  return inspect('./test/fixtures/param-context-matching.js').then(result => {
+    t.deepEqual(expected, _stripTypes(result));
   }).catch(t.fail);
 });

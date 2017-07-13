@@ -1,0 +1,2 @@
+./test/fixtures/no_docs.js formatComparison line 1
+Function on line 1 is missing documentation.

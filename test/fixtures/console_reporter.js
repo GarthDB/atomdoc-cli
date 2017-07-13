@@ -1,4 +1,5 @@
-module.exports = function consoleReporter(result) {
-  console.log(JSON.stringify(result.parserResult, null, 2).trim());
-  console.log('from console reporter');
+module.exports = function consoleReporter(comparison) {
+  var result = JSON.stringify(comparison.result.parserResult, null, 2).trim();
+  result += '\nfrom console reporter';
+  return result;
 }
