@@ -1,7 +1,7 @@
 {
   "name": "atomdoc-cli",
   "description": "A CLI interface for AtomDoc",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "bin": {
     "atomdoc": "./bin/index.js"
   },
