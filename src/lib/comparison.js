@@ -1,4 +1,4 @@
-import Doc from 'atomdoc/lib/doc';
+import Doc from 'atomdoc/src/doc';
 
 export class BasicComparison {
   constructor(label, atomDocValue, inspectorValue) {
