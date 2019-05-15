@@ -34,6 +34,11 @@ class ParamReport {
 }
 
 function _generateParamReports(atomDocArgs, inspectorArgs) {
+  if (!atomDocArgs || !inspectorArgs) {
+    // Cannot generate reports if these are missing
+    return [];
+  }
+
   const paramReports = atomDocArgs.map((atomDocArg, index) => {
     const inspectorArg = inspectorArgs[index];
     const paramReport = new ParamReport(atomDocArg, inspectorArg);
