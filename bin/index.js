@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /* eslint-disable global-require */
-import program from 'commander';
-import pkginfo from 'pkginfo';
-import resolve from 'resolve';
-import fs from 'fs';
-import path from 'path';
-import glob from 'glob';
-import AtomDocDocument from '../lib/';
-import Comparison from '../lib/comparison';
+const program = require('commander');
+const pkginfo = require('pkginfo');
+const resolve = require('resolve');
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+const AtomDocDocument = require('../lib/');
+const Comparison = require('../lib/comparison').Comparison;
 
 pkginfo(module, 'version', 'description');
 
@@ -15,10 +15,18 @@ program
   .version(module.exports.version)
   .description(module.exports.description)
   .usage('<file>')
-  .option('-o, --output-path [filename]',
-    'Where to write out, defaults to stdout if not specified.')
-  .option('-r, --reporter [packagename]', 'Path or package name of a reporter to use')
-  .option('-v, --verbose', 'Show full report, without it, this tool will only show errors')
+  .option(
+    '-o, --output-path [filename]',
+    'Where to write out, defaults to stdout if not specified.'
+  )
+  .option(
+    '-r, --reporter [packagename]',
+    'Path or package name of a reporter to use'
+  )
+  .option(
+    '-v, --verbose',
+    'Show full report, without it, this tool will only show errors'
+  )
   .parse(process.argv);
 
 let reporter;
@@ -30,10 +38,11 @@ if (program.reporter === 'false') {
    *
    * * `comparison` {Comparison} with the full comparison result.
    */
-  reporter = (comparison) => JSON.stringify(comparison.result.parserResult, null, 2);
+  reporter = comparison =>
+    JSON.stringify(comparison.result.parserResult, null, 2);
 } else if (program.reporter) {
   const basedir = path.normalize(process.cwd());
-  const reporterPath = resolve.sync(program.reporter, { basedir });
+  const reporterPath = resolve.sync(program.reporter, {basedir});
   reporter = require(reporterPath);
 } else {
   reporter = require(resolve.sync('../lib/basic_reporter'));
@@ -42,7 +51,9 @@ if (program.reporter === 'false') {
 try {
   const stats = fs.lstatSync(pattern);
   if (stats.isDirectory()) pattern = `${pattern}/**/*.js`;
-} catch (err) { /* */ }
+} catch (err) {
+  /* */
+}
 glob(pattern, {}, (er, files) => {
   if (files.length === 0) {
     console.error(new Error(`No files match '${pattern}'`));
@@ -56,7 +67,11 @@ glob(pattern, {}, (er, files) => {
     doc.process().then(result => {
       result.filename = filepath;
       if (program.outputPath) {
-        fs.writeFileSync(program.outputPath, JSON.stringify(result, null, 2), 'utf8');
+        fs.writeFileSync(
+          program.outputPath,
+          JSON.stringify(result, null, 2),
+          'utf8'
+        );
         console.log(`File ${program.outputPath} written.`);
       } else {
         const comparisonResult = new Comparison(result);
