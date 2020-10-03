@@ -1,33 +1,39 @@
-[{
+[
+  {
     "originalText": "Public: simple sample funtion.\n\n* `arguments` {Object}\n  * `str` {String} the name\n  * `val` (optional) {Number} some number\n\n## Examples\n\n```js\nh({ str: \"bar\", val: 42 });\n```",
     "visibility": "Public",
     "description": "simple sample funtion.",
     "summary": "simple sample funtion.",
-    "arguments": [{
-      "children": [{
-          "name": "str",
-          "description": "{String} the name",
-          "type": "String",
-          "isOptional": false
-        },
-        {
-          "name": "val",
-          "description": "{Number} some number",
-          "type": "Number",
-          "isOptional": true
-        }
-      ],
-      "name": "arguments",
-      "description": "{Object}",
-      "type": "Object",
-      "isOptional": false
-    }],
-    "examples": [{
-      "description": "",
-      "lang": "js",
-      "code": "h({ str: \"bar\", val: 42 });",
-      "raw": "```js\nh({ str: \"bar\", val: 42 });\n```"
-    }],
+    "arguments": [
+      {
+        "children": [
+          {
+            "name": "str",
+            "description": "{String} the name",
+            "type": "String",
+            "isOptional": false
+          },
+          {
+            "name": "val",
+            "description": "{Number} some number",
+            "type": "Number",
+            "isOptional": true
+          }
+        ],
+        "name": "arguments",
+        "description": "{Object}",
+        "type": "Object",
+        "isOptional": false
+      }
+    ],
+    "examples": [
+      {
+        "description": "",
+        "lang": "js",
+        "code": "h({ str: \"bar\", val: 42 });",
+        "raw": "```js\nh({ str: \"bar\", val: 42 });\n```"
+      }
+    ],
     "start": 0,
     "end": 222,
     "className": false,
@@ -39,31 +45,36 @@
     "visibility": "Public",
     "description": "simple sample funtion.",
     "summary": "simple sample funtion.",
-    "arguments": [{
-      "children": [{
-          "name": "name",
-          "description": "{String} the name",
-          "type": "String",
-          "isOptional": false
-        },
-        {
-          "name": "val",
-          "description": "{Number} some number",
-          "type": "Number",
-          "isOptional": true
-        }
-      ],
-      "name": "arguments",
-      "description": "{Object}",
-      "type": "Object",
-      "isOptional": false
-    }],
-    "examples": [{
-      "description": "",
-      "lang": "js",
-      "code": "h({ str: \"bar\", val: 42 });",
-      "raw": "```js\nh({ str: \"bar\", val: 42 });\n```"
-    }],
+    "arguments": [
+      {
+        "children": [
+          {
+            "name": "name",
+            "description": "{String} the name",
+            "type": "String",
+            "isOptional": false
+          },
+          {
+            "name": "val",
+            "description": "{Number} some number",
+            "type": "Number",
+            "isOptional": true
+          }
+        ],
+        "name": "arguments",
+        "description": "{Object}",
+        "type": "Object",
+        "isOptional": false
+      }
+    ],
+    "examples": [
+      {
+        "description": "",
+        "lang": "js",
+        "code": "h({ str: \"bar\", val: 42 });",
+        "raw": "```js\nh({ str: \"bar\", val: 42 });\n```"
+      }
+    ],
     "start": 283,
     "end": 506,
     "className": false,
@@ -75,31 +86,36 @@
     "visibility": "Public",
     "description": "simple sample funtion.",
     "summary": "simple sample funtion.",
-    "arguments": [{
-      "children": [{
-          "name": "str",
-          "description": "{String} the name",
-          "type": "String",
-          "isOptional": false
-        },
-        {
-          "name": "val",
-          "description": "{Number} some number",
-          "type": "Number",
-          "isOptional": false
-        }
-      ],
-      "name": "arguments",
-      "description": "{Object}",
-      "type": "Object",
-      "isOptional": false
-    }],
-    "examples": [{
-      "description": "",
-      "lang": "js",
-      "code": "h({ str: \"bar\", val: 42 });",
-      "raw": "```js\nh({ str: \"bar\", val: 42 });\n```"
-    }],
+    "arguments": [
+      {
+        "children": [
+          {
+            "name": "str",
+            "description": "{String} the name",
+            "type": "String",
+            "isOptional": false
+          },
+          {
+            "name": "val",
+            "description": "{Number} some number",
+            "type": "Number",
+            "isOptional": false
+          }
+        ],
+        "name": "arguments",
+        "description": "{Object}",
+        "type": "Object",
+        "isOptional": false
+      }
+    ],
+    "examples": [
+      {
+        "description": "",
+        "lang": "js",
+        "code": "h({ str: \"bar\", val: 42 });",
+        "raw": "```js\nh({ str: \"bar\", val: 42 });\n```"
+      }
+    ],
     "start": 567,
     "end": 778,
     "className": false,
@@ -111,24 +127,30 @@
     "visibility": "Public",
     "description": "simple sample funtion.",
     "summary": "simple sample funtion.",
-    "arguments": [{
-      "children": [{
-        "name": "str",
-        "description": "{String} the name",
-        "type": "String",
+    "arguments": [
+      {
+        "children": [
+          {
+            "name": "str",
+            "description": "{String} the name",
+            "type": "String",
+            "isOptional": false
+          }
+        ],
+        "name": "arguments",
+        "description": "{Object}",
+        "type": "Object",
         "isOptional": false
-      }],
-      "name": "arguments",
-      "description": "{Object}",
-      "type": "Object",
-      "isOptional": false
-    }],
-    "examples": [{
-      "description": "",
-      "lang": "js",
-      "code": "j({ str: \"bar\", val: 42 });",
-      "raw": "```js\nj({ str: \"bar\", val: 42 });\n```"
-    }],
+      }
+    ],
+    "examples": [
+      {
+        "description": "",
+        "lang": "js",
+        "code": "j({ str: \"bar\", val: 42 });",
+        "raw": "```js\nj({ str: \"bar\", val: 42 });\n```"
+      }
+    ],
     "start": 838,
     "end": 1014,
     "className": false,

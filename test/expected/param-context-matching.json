@@ -1,77 +1,102 @@
-[{
-  "type": "FunctionDeclaration",
-  "name": "h",
-  "className": false,
-  "start": 223,
-  "end": 281,
-  "definitionLine": 14,
-  "args": [{
-    "name": "arguments",
-    "optional": false,
-    "children": [{
-      "name": "str",
-      "optional": false
-    }, {
-      "name": "val",
-      "optional": true
-    }]
-  }],
-  "returns": []
-}, {
-  "type": "FunctionDeclaration",
-  "name": "g",
-  "className": false,
-  "start": 507,
-  "end": 565,
-  "definitionLine": 31,
-  "args": [{
-    "name": "arguments",
-    "optional": false,
-    "children": [{
-      "name": "str",
-      "optional": false
-    }, {
-      "name": "val",
-      "optional": true
-    }]
-  }],
-  "returns": []
-}, {
-  "type": "FunctionDeclaration",
-  "name": "i",
-  "className": false,
-  "start": 779,
-  "end": 837,
-  "definitionLine": 48,
-  "args": [{
-    "name": "arguments",
-    "optional": false,
-    "children": [{
-      "name": "str",
-      "optional": false
-    }, {
-      "name": "val",
-      "optional": true
-    }]
-  }],
-  "returns": []
-}, {
-  "type": "FunctionDeclaration",
-  "name": "j",
-  "className": false,
-  "start": 1015,
-  "end": 1073,
-  "definitionLine": 63,
-  "args": [{
-    "name": "arguments",
-    "optional": false,
-    "children": [{
-      "name": "str",
-      "optional": false
-    }, {
-      "name": "val",
-      "optional": true
-    }]
-  }],
-  "returns": []
-}]
+[
+  {
+    "type": "FunctionDeclaration",
+    "name": "h",
+    "className": false,
+    "start": 223,
+    "end": 281,
+    "definitionLine": 14,
+    "args": [
+      {
+        "name": "arguments",
+        "optional": false,
+        "children": [
+          {
+            "name": "str",
+            "optional": false
+          },
+          {
+            "name": "val",
+            "optional": true
+          }
+        ]
+      }
+    ],
+    "returns": []
+  },
+  {
+    "type": "FunctionDeclaration",
+    "name": "g",
+    "className": false,
+    "start": 507,
+    "end": 565,
+    "definitionLine": 31,
+    "args": [
+      {
+        "name": "arguments",
+        "optional": false,
+        "children": [
+          {
+            "name": "str",
+            "optional": false
+          },
+          {
+            "name": "val",
+            "optional": true
+          }
+        ]
+      }
+    ],
+    "returns": []
+  },
+  {
+    "type": "FunctionDeclaration",
+    "name": "i",
+    "className": false,
+    "start": 779,
+    "end": 837,
+    "definitionLine": 48,
+    "args": [
+      {
+        "name": "arguments",
+        "optional": false,
+        "children": [
+          {
+            "name": "str",
+            "optional": false
+          },
+          {
+            "name": "val",
+            "optional": true
+          }
+        ]
+      }
+    ],
+    "returns": []
+  },
+  {
+    "type": "FunctionDeclaration",
+    "name": "j",
+    "className": false,
+    "start": 1015,
+    "end": 1073,
+    "definitionLine": 63,
+    "args": [
+      {
+        "name": "arguments",
+        "optional": false,
+        "children": [
+          {
+            "name": "str",
+            "optional": false
+          },
+          {
+            "name": "val",
+            "optional": true
+          }
+        ]
+      }
+    ],
+    "returns": []
+  }
+]
