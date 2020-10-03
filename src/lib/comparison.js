@@ -1,6 +1,6 @@
-import Doc from 'atomdoc/src/doc';
+const Doc = require("atomdoc/src/doc");
 
-export class BasicComparison {
+class BasicComparison {
   constructor(label, atomDocValue, inspectorValue) {
     Object.assign(this, { label, atomDocValue, inspectorValue });
   }
@@ -15,10 +15,18 @@ class ParamReport {
     this.childrenReports = [];
   }
   get nameMatch() {
-    return new BasicComparison('name', this.atomDocArg.name, this.inspectorArg.name);
+    return new BasicComparison(
+      "name",
+      this.atomDocArg.name,
+      this.inspectorArg.name
+    );
   }
   get optionalMatch() {
-    return new BasicComparison('optional', this.atomDocArg.isOptional, this.inspectorArg.optional);
+    return new BasicComparison(
+      "optional",
+      this.atomDocArg.isOptional,
+      this.inspectorArg.optional
+    );
   }
   get valid() {
     const tests = [
@@ -29,7 +37,7 @@ class ParamReport {
     return tests.every((test) => test);
   }
   get hasChildren() {
-    return (this.childrenReports.length > 0);
+    return this.childrenReports.length > 0;
   }
 }
 
@@ -39,7 +47,8 @@ function _generateParamReports(atomDocArgs, inspectorArgs) {
     const paramReport = new ParamReport(atomDocArg, inspectorArg);
     if (atomDocArg.children) {
       paramReport.childrenReports = _generateParamReports(
-        atomDocArg.children, inspectorArg.children
+        atomDocArg.children,
+        inspectorArg.children
       );
     }
     return paramReport;
@@ -47,22 +56,25 @@ function _generateParamReports(atomDocArgs, inspectorArgs) {
   return paramReports;
 }
 
-function _countArgs(parent, childLabel = 'args', count = 0) {
-  if (!({}).hasOwnProperty.call(parent, childLabel)) return count;
+function _countArgs(parent, childLabel = "args", count = 0) {
+  if (!{}.hasOwnProperty.call(parent, childLabel)) return count;
   let resultCount = count;
   parent[childLabel].forEach((arg) => {
     resultCount++;
-    resultCount += _countArgs(arg, 'children');
+    resultCount += _countArgs(arg, "children");
   });
   return resultCount;
 }
 
-export class MethodReport {
+class MethodReport {
   constructor(atomDocMethod, inspectorMethod) {
     this.atomDocMethod = atomDocMethod;
     this.inspectorMethod = inspectorMethod;
     if (this.validDocs) {
-      this.paramReports = _generateParamReports(atomDocMethod.arguments, inspectorMethod.args);
+      this.paramReports = _generateParamReports(
+        atomDocMethod.arguments,
+        inspectorMethod.args
+      );
     }
   }
   /**
@@ -93,7 +105,11 @@ export class MethodReport {
    *  ```
    */
   get nameMatch() {
-    return new BasicComparison('name', this.atomDocMethod.name, this.inspectorMethod.name);
+    return new BasicComparison(
+      "name",
+      this.atomDocMethod.name,
+      this.inspectorMethod.name
+    );
   }
   get visibility() {
     return this.atomDocMethod.visibility;
@@ -102,19 +118,22 @@ export class MethodReport {
     return Boolean(this.atomDocMethod.examples);
   }
   get classNameMatch() {
-    return new BasicComparison('className',
-      this.atomDocMethod.className, this.inspectorMethod.className);
+    return new BasicComparison(
+      "className",
+      this.atomDocMethod.className,
+      this.inspectorMethod.className
+    );
   }
   get validExamples() {
-    if (this.visibility === 'Public') {
+    if (this.visibility === "Public") {
       return Boolean(this.examplesExist);
     }
     return true;
   }
   get argCountMatch() {
     const inspectorArgCount = _countArgs(this.inspectorMethod);
-    const atomDocArgCount = _countArgs(this.atomDocMethod, 'arguments');
-    return new BasicComparison('ArgCount', atomDocArgCount, inspectorArgCount);
+    const atomDocArgCount = _countArgs(this.atomDocMethod, "arguments");
+    return new BasicComparison("ArgCount", atomDocArgCount, inspectorArgCount);
   }
   get valid() {
     const tests = [
@@ -128,7 +147,7 @@ export class MethodReport {
   }
 }
 
-export default class Comparison {
+class Comparison {
   constructor(result) {
     this.result = result;
     this.reports = [];
@@ -141,3 +160,7 @@ export default class Comparison {
     return this.reports.every((report) => report.valid);
   }
 }
+
+const myModule = (module.exports = Comparison);
+myModule.MethodReport = MethodReport;
+myModule.BasicComparison = BasicComparison;

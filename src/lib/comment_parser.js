@@ -1,9 +1,9 @@
-import AtomDoc from 'atomdoc';
+const AtomDoc = require("atomdoc");
 
 /**
  *  CommentParser Class
  */
-export default class CommentParser {
+class CommentParser {
   /**
    *  Public: creates a new CommentParser instance
    *
@@ -53,7 +53,7 @@ export default class CommentParser {
   _fixIndent(str) {
     const indentRegEx = /^(\s)*/;
     const indent = str.match(indentRegEx)[0];
-    return str.replace(new RegExp(indent, ['g']), '\n').trim();
+    return str.replace(new RegExp(indent, ["g"]), "\n").trim();
   }
 
   /**
@@ -65,7 +65,7 @@ export default class CommentParser {
    */
   _removeBlockAstrisks(str) {
     if (str.match(/^\*/)) {
-      return str.replace(/^\s*\*/gm, '');
+      return str.replace(/^\s*\*/gm, "");
     }
     return str;
   }
@@ -104,3 +104,4 @@ export default class CommentParser {
     }
   }
 }
+module.exports = CommentParser;

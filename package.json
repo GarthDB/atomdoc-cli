@@ -11,7 +11,7 @@
     "compile": "esbuild ./src/**/*.js '--define:process.env.NODE_ENV=\"production\"' --minify --outdir=./",
     "test": "ava",
     "coverage": "nyc npm test",
-    "checkdocs": "atomdoc src",
+    "checkdocs": "node ./bin/index.js src",
     "validate": "npm run coverage && npm run checkdocs"
   },
   "repository": {
@@ -32,12 +32,6 @@
   "homepage": "https://github.com/GarthDB/atomdoc-cli#readme",
   "eslintConfig": {
     "extends": "garthdb"
-  },
-  "ava": {
-    "babel": false,
-    "files": [
-      "test/*.js"
-    ]
   },
   "nyc": {
     "include": [
