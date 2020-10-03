@@ -51,6 +51,7 @@
     "resolve": "^1.17.0"
   },
   "devDependencies": {
+    "@ava/babel": "^1.0.1",
     "ava": "^3.13.0",
     "codecov": "^3.7.2",
     "esbuild": "^0.7.8",
