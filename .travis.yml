@@ -1,5 +1,5 @@
 language: node_js
-node_js: "6"
+node_js: "v12.18.4"
 before_script:
   - npm link
 script:

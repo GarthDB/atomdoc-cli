@@ -1,7 +1,7 @@
-import falafel from 'falafel';
-import CommentParser from './comment_parser';
-import ContentParser from './content_parser';
-import ContentInspector from './content_inspector';
+const falafel = require("falafel");
+const CommentParser = require("./comment_parser");
+const ContentParser = require("./content_parser");
+const ContentInspector = require("./content_inspector");
 
 /**
  *  Result Class
@@ -27,7 +27,9 @@ class Result {
    *  Returns AtomDoc {Doc} that matches the `definitionLine`.
    */
   findAtomDoc(definitionLine) {
-    return this.parserResult.find(method => Boolean(method.definitionLine === definitionLine));
+    return this.parserResult.find((method) =>
+      Boolean(method.definitionLine === definitionLine)
+    );
   }
   // TODO make a better modular test for this method.
   // TODO make documentation public with example
@@ -36,7 +38,7 @@ class Result {
 /**
  *  AtomDocDocument Class
  */
-export default class AtomDocDocument {
+class AtomDocDocument {
   /**
    *  Public: constructor for AtomDocDocument instance.
    *
@@ -72,18 +74,23 @@ export default class AtomDocDocument {
     const commentParser = new CommentParser();
     const contentParser = new ContentParser(this.content, commentParser);
     const contentInspector = new ContentInspector(this.content);
-    falafel(this.content, {
-      sourceType: 'module',
-      ecmaVersion: '6',
-      onComment: commentParser.parseComment.bind(commentParser),
-      locations: true,
-      allowHashBang: true,
-    }, (node) => {
-      contentInspector.inspectNode(node);
-      contentParser.parseNode(node);
-    });
-    return Promise.all([contentParser.promise, contentInspector.promise]).then(result =>
-      new Result(result)
+    falafel(
+      this.content,
+      {
+        sourceType: "module",
+        ecmaVersion: "6",
+        onComment: commentParser.parseComment.bind(commentParser),
+        locations: true,
+        allowHashBang: true,
+      },
+      (node) => {
+        contentInspector.inspectNode(node);
+        contentParser.parseNode(node);
+      }
+    );
+    return Promise.all([contentParser.promise, contentInspector.promise]).then(
+      (result) => new Result(result)
     );
   }
 }
+module.exports = AtomDocDocument;

@@ -7,7 +7,7 @@
  *  Returns {Node} either the `node` itself of the parent.
  */
 function _getNodeType(node) {
-  return (node.type !== 'Identifier') ? node.type : node.parent.type;
+  return node.type !== "Identifier" ? node.type : node.parent.type;
 }
 
 /**
@@ -35,15 +35,20 @@ const _typeHandlers = {
    *  * `node` the {Node} to parse.
    */
   ArrowFunctionExpression(comment, node) {
-    if (node.parent.type === 'VariableDeclarator' || node.parent.type === 'ExpressionStatement') {
+    if (
+      node.parent.type === "VariableDeclarator" ||
+      node.parent.type === "ExpressionStatement"
+    ) {
       comment.className = false;
       comment.name = false;
       try {
         comment.name = node.parent.id.name;
-      } catch (err) { /**/ }
+      } catch (err) {
+        /**/
+      }
       comment.definitionLine = node.loc.start.line;
     }
-    if (node.parent.type === 'AssignmentExpression') {
+    if (node.parent.type === "AssignmentExpression") {
       comment.className = false;
       comment.name = node.parent.left.name;
       comment.definitionLine = node.loc.start.line;
@@ -67,17 +72,17 @@ const _typeHandlers = {
    *  * `node` the {Node} to parse.
    */
   FunctionExpression(comment, node) {
-    if (node.parent.type === 'Property') {
+    if (node.parent.type === "Property") {
       comment.className = false;
       comment.name = node.parent.key.name || false;
       comment.definitionLine = node.loc.start.line;
     }
-    if (node.parent.type === 'VariableDeclarator') {
+    if (node.parent.type === "VariableDeclarator") {
       comment.className = false;
       comment.name = node.parent.id.name;
       comment.definitionLine = node.loc.start.line;
     }
-    if (node.parent.type === 'AssignmentExpression') {
+    if (node.parent.type === "AssignmentExpression") {
       comment.className = false;
       comment.name = node.parent.left.name;
       comment.definitionLine = node.loc.start.line;
@@ -95,7 +100,9 @@ const _typeHandlers = {
     comment.definitionLine = node.loc.start.line;
     try {
       comment.className = node.parent.parent.id.name;
-    } catch (err) { /**/ }
+    } catch (err) {
+      /**/
+    }
   },
 };
 
@@ -110,18 +117,18 @@ const _typeHandlers = {
  */
 function _getNextCommentIndex(comments, node) {
   return comments.findIndex((comment, index, array) => {
-    if (index >= (array.length - 1)) {
+    if (index >= array.length - 1) {
       return Boolean(node.start >= comment.end);
     }
     const next = array[index + 1];
-    return (node.start >= comment.end && node.end <= next.start);
+    return node.start >= comment.end && node.end <= next.start;
   });
 }
 
 /**
  * ContentParser Class
  */
-export default class ContentParser {
+class ContentParser {
   /**
    *  Public: ContentParser parses Spidermonkey AST {Node}s to extract function
    *  and class names to add to AtomDoc parsed comment results provided by the
@@ -181,13 +188,16 @@ export default class ContentParser {
    */
   parseNode(node) {
     const nodeType = _getNodeType(node);
-    const _node = (nodeType !== node.type) ? node.parent : node;
+    const _node = nodeType !== node.type ? node.parent : node;
     const handler = _getHandler(_node.type, _typeHandlers);
     if (this.captureNextFunctionName && handler) {
       handler(this.commentParser.comments[this.commentIndex], _node);
       this.captureNextFunctionName = false;
     }
-    const nextCommentIndex = _getNextCommentIndex(this.commentParser.comments, node);
+    const nextCommentIndex = _getNextCommentIndex(
+      this.commentParser.comments,
+      node
+    );
     if (nextCommentIndex > this.commentIndex) {
       this.commentIndex = nextCommentIndex;
       this.captureNextFunctionName = true;
@@ -196,6 +206,8 @@ export default class ContentParser {
         this.captureNextFunctionName = false;
       }
     }
-    if (node.end === this.content.length) this.resolve(this.commentParser.comments);
+    if (node.end === this.content.length)
+      this.resolve(this.commentParser.comments);
   }
 }
+module.exports = ContentParser;

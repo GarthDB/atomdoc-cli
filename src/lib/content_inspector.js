@@ -15,8 +15,26 @@ class InspectorMethod {
    *  * `args` {Array} of {Param}
    *  * `returns` {Array} of {ReturnResult}
    */
-  constructor(type, name, className, start, end, definitionLine, args, returns) {
-    const params = { type, name, className, start, end, definitionLine, args, returns };
+  constructor(
+    type,
+    name,
+    className,
+    start,
+    end,
+    definitionLine,
+    args,
+    returns
+  ) {
+    const params = {
+      type,
+      name,
+      className,
+      start,
+      end,
+      definitionLine,
+      args,
+      returns,
+    };
     Object.assign(this, params);
   }
 }
@@ -88,7 +106,7 @@ class Param {
  *  the `node` `start` and `end`.
  */
 function _getReturns(node, returnsArr) {
-  return returnsArr.filter(returnResult =>
+  return returnsArr.filter((returnResult) =>
     Boolean(node.loc.start.line === returnResult.funcLine)
   );
 }
@@ -104,15 +122,15 @@ function _parseParams(params) {
   return params.map((param) => {
     let result;
     switch (param.type) {
-      case 'Identifier':
+      case "Identifier":
         result = new Param(param.name);
         break;
-      case 'AssignmentPattern':
+      case "AssignmentPattern":
         result = new Param(param.left.name, true);
         break;
-      case 'ObjectPattern': {
+      case "ObjectPattern": {
         const objParams = param.properties.map((objParam) => objParam.value);
-        result = new Param('arguments', false, _parseParams(objParams));
+        result = new Param("arguments", false, _parseParams(objParams));
         break;
       }
       default:
@@ -148,23 +166,44 @@ const _typeHandlers = {
    *  * `returnsArr` {Array} of {ReturnResult}.
    */
   ArrowFunctionExpression(node, arr, returnsArr) {
-    if (node.parent.type === 'VariableDeclarator' || node.parent.type === 'ExpressionStatement') {
+    if (
+      node.parent.type === "VariableDeclarator" ||
+      node.parent.type === "ExpressionStatement"
+    ) {
       let name = false;
       try {
         name = node.parent.id.name;
-      } catch (err) { /* */ }
+      } catch (err) {
+        /* */
+      }
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
-      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
-        node.loc.start.line, args, returns);
+      const result = new InspectorMethod(
+        node.type,
+        name,
+        false,
+        node.start,
+        node.end,
+        node.loc.start.line,
+        args,
+        returns
+      );
       arr.push(result);
     }
-    if (node.parent.type === 'AssignmentExpression') {
+    if (node.parent.type === "AssignmentExpression") {
       const name = node.parent.left.name;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
-      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
-        node.loc.start.line, args, returns);
+      const result = new InspectorMethod(
+        node.type,
+        name,
+        false,
+        node.start,
+        node.end,
+        node.loc.start.line,
+        args,
+        returns
+      );
       arr.push(result);
     }
   },
@@ -180,8 +219,16 @@ const _typeHandlers = {
     const name = node.id.name || false;
     const args = _parseParams(node.params);
     const returns = _getReturns(node, returnsArr);
-    const result = new InspectorMethod(node.type, name, false, node.start, node.end,
-      node.loc.start.line, args, returns);
+    const result = new InspectorMethod(
+      node.type,
+      name,
+      false,
+      node.start,
+      node.end,
+      node.loc.start.line,
+      args,
+      returns
+    );
     arr.push(result);
   },
   /**
@@ -193,28 +240,52 @@ const _typeHandlers = {
    *  * `returnsArr` {Array} of {ReturnResult}.
    */
   FunctionExpression(node, arr, returnsArr) {
-    if (node.parent.type === 'Property') {
+    if (node.parent.type === "Property") {
       const name = node.parent.key.name || false;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
-      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
-        node.loc.start.line, args, returns);
+      const result = new InspectorMethod(
+        node.type,
+        name,
+        false,
+        node.start,
+        node.end,
+        node.loc.start.line,
+        args,
+        returns
+      );
       arr.push(result);
     }
-    if (node.parent.type === 'VariableDeclarator') {
+    if (node.parent.type === "VariableDeclarator") {
       const name = node.parent.id.name || false;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
-      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
-        node.loc.start.line, args, returns);
+      const result = new InspectorMethod(
+        node.type,
+        name,
+        false,
+        node.start,
+        node.end,
+        node.loc.start.line,
+        args,
+        returns
+      );
       arr.push(result);
     }
-    if (node.parent.type === 'AssignmentExpression') {
+    if (node.parent.type === "AssignmentExpression") {
       const name = node.parent.left.name;
       const args = _parseParams(node.params);
       const returns = _getReturns(node, returnsArr);
-      const result = new InspectorMethod(node.type, name, false, node.start, node.end,
-        node.loc.start.line, args, returns);
+      const result = new InspectorMethod(
+        node.type,
+        name,
+        false,
+        node.start,
+        node.end,
+        node.loc.start.line,
+        args,
+        returns
+      );
       arr.push(result);
     }
   },
@@ -232,10 +303,20 @@ const _typeHandlers = {
     let className = false;
     try {
       className = node.parent.parent.id.name;
-    } catch (err) { /**/ }
+    } catch (err) {
+      /**/
+    }
     const returns = _getReturns(node, returnsArr);
-    const result = new InspectorMethod(node.type, name, className, node.start, node.end,
-      node.loc.start.line, args, returns);
+    const result = new InspectorMethod(
+      node.type,
+      name,
+      className,
+      node.start,
+      node.end,
+      node.loc.start.line,
+      args,
+      returns
+    );
     arr.push(result);
   },
   /**
@@ -251,7 +332,9 @@ const _typeHandlers = {
     let name = false;
     try {
       name = node.argument.name;
-    } catch (err) { /**/ }
+    } catch (err) {
+      /**/
+    }
     let funcLine = false;
     let currentNode = node.parent;
     while (!funcLine) {
@@ -270,7 +353,7 @@ const _typeHandlers = {
 /**
  *  ContentInspector Class
  */
-export default class ContentInspector {
+class ContentInspector {
   /**
    *  Public: creates an instance of ContentInspector to parse `content`.
    *
@@ -332,3 +415,4 @@ export default class ContentInspector {
     if (node.end === this.content.length) this.resolve(this.functions);
   }
 }
+module.exports = ContentInspector;
